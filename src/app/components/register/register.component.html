@@ -1,0 +1,118 @@
+<app-header></app-header>
+
+<div class="container">
+    <div class="register-form">
+        <h2 class="register-header">Đăng ký</h2>
+
+        <form #registerForm="ngForm" action="#" method="post"> <!-- Mở thẻ form ở đây -->
+
+            <div class="form-group">
+                <label class="form-label" for="phoneNumber">Phone Number:</label>
+                <input type="text" class="form-control" 
+                [(ngModel)]="phoneNumber"
+                (input)="onPhoneNumberChange()"
+                id="phoneNumber" name="phoneNumber" required >
+                <div class="divider-nospace"></div>
+                <p class="text-danger" *ngIf="phoneNumber.length<6 && registerForm.form.touched">
+                    Phone must be least 6 characters
+                </p>
+            </div>     
+            <div class="mt-5"></div>
+
+            <!-- Password -->
+            <div class="form-group password-field">
+                <label class="form-label" for="password">Password:</label>
+                <input type="password" name="password" class="form-control" 
+                [(ngModel)]="password" id="password" name="password" 
+                placeholder="Min 3 characters" required>
+                <i class="password-toggle fas fa-eye-slash"></i>
+                <div class="divider-nospace"></div>
+                <p class="text-danger" *ngIf="password.length<3 && registerForm.form.touched">
+                    Password must be least 3 characters
+                </p>
+                <div class="mt-5"></div>
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="form-group password-field">
+                <label class="form-label" for="retypePassword">Retype Password:</label>
+                <input type="password" class="form-control" 
+                [(ngModel)]="retypePassword" id="retypePassword" name="retypePassword"
+                (input)="registerForm.form.markAsTouched();checkPasswordsMatch()"
+                 placeholder="Min 3 characters" required>
+                <i class="password-toggle fas fa-eye-slash"></i>
+                <div class="divider-nospace"></div>
+                <p class="text-danger" *ngIf="retypePassword.length<3 && registerForm.form.touched">
+                    Password must be least 3 characters
+                </p>
+                <p class="text-danger" *ngIf="registerForm.form.controls['retypePassword']?.hasError('mismatch')
+                 && registerForm.form.touched">
+                    Passwords do not match
+                </p>
+            </div>
+
+            <!-- Name -->
+            <div class="form-group">
+                <label class="form-label" for="fullName">Họ và Tên:</label>
+                <input type="text" class="form-control" 
+                [(ngModel)]="fullName"
+
+                id="fullName" name="fullName" required>
+                <div class="divider-nospace"></div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="email">Ngay thang nam sinh:</label>
+                <!-- ngModel de 2 way binding -->
+                <input type="date" class="form-control" 
+                [(ngModel)]="dateOfBirth" (input)="registerForm.form.markAsTouched(); checkAge()"
+                id="date-of-birth" name="dateOfBirth" required>
+                <div class="divider-nospace"></div>
+                <p class="text-danger" *ngIf="registerForm.controls['dateOfBirth']?.hasError('invalidAge') 
+                && registerForm.form.touched">
+                    You must be at least 18 years old to register
+                </p>
+            </div>
+
+            <!-- Address -->
+            <div class="form-group">
+                <label class="form-label" for="address">Địa chỉ:</label>
+                <input type="text" class="form-control" 
+                [(ngModel)]="address"
+
+                id="address" name="address" required>
+                <div class="divider-nospace"></div>
+            </div>
+
+               <!-- Checkbox Điều khoản -->
+               <div class="form-group">
+                <div class="form-check checkbox-text">
+                    <span style="display: flex;">
+                        <input type="checkbox" class="form-check-input"
+                        [(ngModel)]="isAccepted"
+                        name="isAccepted"
+                        id="agree" required>
+                        <label class="form-check-label" for="agree">
+                            Tôi đồng ý với <a href="#" class="clause-link">các điều khoản và điều kiện</a>
+                        </label>
+                    </span>
+                    
+                </div>
+            </div>
+
+            <!-- Button -->
+            <div class="form-group">
+                <button type="submit"
+                (click)="register()"
+                class="btn btn-gradient">Register</button>
+                <div class="divider">
+                    <p class="register-text">Already have an account? <a href="#" class="register-link">Login</a></p>
+                </div>
+            </div>
+
+        </form> 
+
+    </div> <!-- Đóng register-form -->
+</div> <!-- Đóng container -->
+
+<app-footer></app-footer> <!-- Footer nằm ngoài container -->

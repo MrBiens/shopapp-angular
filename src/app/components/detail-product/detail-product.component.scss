@@ -1,0 +1,63 @@
+.intro-section{
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+.product-image {
+    width: 100%; //    kích thước rong ảnh sản phẩm bao phu toan bo */
+    height: 100%; //  kích thước cao ảnh sản phẩm bao phu toan bo */
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+.thumbnail-container { //   Thay đổi kích thước thumbnail */
+    display: flex; //   thanh hang */
+    justify-content: space-between; 
+    margin-top: 5px; /* giảm khoảng cách phía trên thumbnail */
+    margin-bottom: 20px; //    khoảng cách giữa thumbnail và footer */
+}
+.thumbnail-item{ 
+    width: 100%;
+    height: 100%;
+    margin-right: 10px;
+}
+
+.thumbnail-item img { //   Thay đổi kích thước ảnh thumbnail */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.thumbnail-item.active  { //   Thay đổi border của thumbnail đang được chọn */
+    border: 2px solid #007bff;
+}
+.thumbnail-item:last-child{    //   Thay đổi margin-right của thumbnail cuối cùng*/
+    margin-right: 0;
+}
+.product-details{
+    color: white;
+    margin-top: 20px;
+    // text-align: center;
+}
+.product-actions {
+    display: flex;
+    // justify-content: center;
+    margin-top: 10px;
+}
+.product-actions button {
+    margin: 0 5px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.product-quantity {
+    display: flex;
+    // justify-content: center;
+    margin-top: 10px;
+    align-items: center;
+    
+}

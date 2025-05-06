@@ -1,0 +1,77 @@
+.container {
+    color: white;
+    min-height: 100vh; /* Cho container cao tối thiểu full màn hình */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;    
+}
+.register-form {
+    background-color: rgb(12,12,55);
+    border-radius: 10px;
+    padding: 30px;
+    border: 1px solid rgb(29,33,54);
+    width: 100%;
+    max-width: 400px; /* thu nhỏ form */
+}
+.divider{
+    border-top: 1px solid white;
+    margin: 10px 0;
+}
+.btn-gradient{
+    background: linear-gradient(to right,rgb(225,64,180),rgb(126,43,237)) ;
+    width: 100%;
+    color: white;
+    border-radius: 30px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.divider-nospace {
+    border-top: 1px solid white;
+    margin: 10px 0;
+}
+
+.form-group{
+    border: none;
+}
+.form-control {
+    background-color: transparent;
+    color: white;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 12px;
+    border: none; /* Loại bỏ border toàn bộ */
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+.form-control:focus {
+    background-color: transparent;
+    border: none;
+    color: white;
+    outline: 1px solid; /* Đường viền màu xanh khi focus */
+}
+.form-control::placeholder {
+    color: white; /* Thay đổi màu chữ placeholder thành trắng */
+    opacity: 0.5; /* Đảm bảo placeholder không mờ */
+}
+.password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    font-size: 20px;
+    cursor: pointer;
+    color: white;
+}
+.password-field {
+    position: relative; //* Đặt icon bên trong trường mật khẩu */
+}
+.password-field .form-control {
+    padding-right: 40px; /* Chừa khoảng trống để icon không đè chữ */
+}
+.clause-link {
+    color: rgb(105,244,181);
+    text-decoration: none;
+    font-weight: bold;
+}
