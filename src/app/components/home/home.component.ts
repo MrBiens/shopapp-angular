@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
   products : Product[] = [];
   categories: Category[] = []; // Array to hold categories
   currentPage: number = 1;
-  itemsPerPage: number = 122; // Number of items to display per page
+  itemsPerPage: number = 12; // Number of items to display per page
   pages: number = 0; // Total number of pages
   totalPages: number = 0; // Total number of pages
   visiblePages: number[] = []; // Array to hold the visible page numbers
@@ -72,7 +72,7 @@ export class HomeComponent implements OnInit {
         // Thay đổi từ response.products thành response.result.list
         if (response.result && response.result.list && Array.isArray(response.result.list)) {
           response.result.list.forEach((product: Product) => {
-            product.url = Environment.apiUrl + '/products/images/' + product.image;
+            product.image = Environment.apiUrl + '/products/images/' + product.image;
           });
           this.products = response.result.list;
           this.pages = response.totalPages;

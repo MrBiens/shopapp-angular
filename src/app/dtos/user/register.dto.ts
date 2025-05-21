@@ -6,9 +6,11 @@ export class RegisterDTO{
     full_name: string;
 
     @IsPhoneNumber()
+    @IsNotEmpty()
     phone_number: string;
 
     @IsString()
+    @IsNotEmpty()
     address: string;
 
     @IsString()
@@ -26,7 +28,7 @@ export class RegisterDTO{
 
     google_account_id: string;
 
-    role_id: number; // 1: user, 2: admin
+    // role_id: number; // 1: user, 2: admin
 
     constructor(data:any){
         this.full_name = data.full_name || '';
@@ -37,7 +39,7 @@ export class RegisterDTO{
         this.date_of_birth = data.date_of_birth || new Date();
         this.facebook_account_id = data.facebook_account_id || '';
         this.google_account_id = data.google_account_id || '';
-        this.role_id = data.role_id || 1; // Default to user role
+        // this.role_id = data.role_id || 1; // Default to user role
     }
 
 }

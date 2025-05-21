@@ -61,4 +61,12 @@ th,td{
     border-radius: 30px;
     cursor: pointer;
 }
+input::placeholder{
+    color: white;
+    opacity: 0.2;
+}
+textarea::placeholder{
+    color: white;
+    opacity: 0.2;
+}
 

@@ -27,6 +27,9 @@ export class CartService {
         }
         this.saveCartToLocalStorage();
     }
+
+
+
     getCart(): Map<number,number> {
         return this.cart;
     }
@@ -34,6 +37,22 @@ export class CartService {
     saveCartToLocalStorage(){
         localStorage.setItem('cart',JSON.stringify(Array.from(this.cart.entries())))
     }
+
+    clearCart():void{
+        this.cart.clear(); // lam moi cart
+        this.saveCartToLocalStorage(); //luu lai thay doi
+    }
+
+    removeCart(productId:number):void{
+        if(this.cart.has(productId)){
+            this.cart.delete(productId);
+            this.saveCartToLocalStorage();
+        }
+    }
+    
+
+
+
 
 
 

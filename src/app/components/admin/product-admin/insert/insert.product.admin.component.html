@@ -1,0 +1,102 @@
+<div class="container mt-4">
+  <h2 class="mb-3">Thêm sản phẩm mới</h2>
+
+  <form (ngSubmit)="insertProduct()" #productForm="ngForm">
+    <!-- Tên sản phẩm -->
+    <div class="mb-3">
+      <label class="form-label">Tên sản phẩm</label>
+      <input
+        type="text"
+        class="form-control"
+        name="name"
+        [(ngModel)]="insertProductDTO.name"
+        required
+      />
+    </div>
+
+    <!-- Giá sản phẩm -->
+    <div class="mb-3">
+      <label class="form-label">Giá</label>
+      <input
+        type="number"
+        class="form-control"
+        name="price"
+        [(ngModel)]="insertProductDTO.price"
+        required
+        min="0"
+      />
+    </div>
+
+    <!-- Mô tả -->
+    <div class="mb-3">
+      <label class="form-label">Mô tả</label>
+      <textarea
+        class="form-control"
+        rows="4"
+        name="description"
+        [(ngModel)]="insertProductDTO.description"
+        required
+      ></textarea>
+    </div>
+
+    <!-- Danh mục -->
+    <div class="mb-3">
+      <label class="form-label">Danh mục</label>
+      <select
+        class="form-select"
+        name="category_id"
+        [(ngModel)]="insertProductDTO.category_id"
+        required
+      >
+        <option *ngFor="let category of categories" [value]="category.id">
+          {{ category.name }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Upload ảnh -->
+    <div class="mb-3">
+      <label class="form-label">Thêm hình ảnh (tối đa 5 ảnh):</label>
+      <input
+        type="file"
+        class="form-control"
+        (change)="onFileSelected($event)"
+        multiple
+        accept="image/*"
+      />
+    </div>
+
+    <!-- Hiển thị ảnh preview -->
+    <div class="row">
+      <div class="col-md-3 mb-2" *ngFor="let preview of uploadImagePreviews; let i = index">
+        <div class="card h-100">
+          <img
+            [src]="preview"
+            class="card-img-top"
+            [alt]="'Ảnh ' + i"
+            style="object-fit: cover; height: 150px"
+          />
+          <div class="card-body text-center p-2">
+            <small class="text-muted">{{ uploadImages[i].name }}</small>
+            <button class="btn btn-sm btn-danger mt-1" (click)="removeImage(i)">Xóa</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nút submit -->
+    <div class="d-flex justify-content-between mt-3">
+      <button
+        class="btn btn-success"
+        type="submit"
+        [disabled]="productForm.invalid"
+      >
+        Thêm sản phẩm
+      </button>
+
+      <button class="btn btn-secondary" type="button" [routerLink]="['/admin/products']">
+        Quay lại
+      </button>
+    </div>
+  </form>
+</div>

@@ -27,7 +27,9 @@
 
         <div class="form-group">
             <div class="form-check checkbox-text">
-                <input type="checkbox" class="form-check-input" id="rememberMe">
+                <input type="checkbox" class="form-check-input"
+                [(ngModel)]="rememberMe"
+                id="rememberMe">
                 <label class="form-check-label" for="rememberMe">Remember Me</label>
                 <a href="#" class="register-link">Forgot password</a>
             </div>
@@ -37,7 +39,7 @@
             (click)="login()"
             class="btn btn-gradient">Login</button>
             <div class="divider-nospace">
-                <p class="register-text">Don't have an account? <a href="#" class="register-link">Register</a></p>
+                <p class="register-text" >Don't have an account? <a (click)="createAccount()" class="register-link">Register</a></p>
             </div>
         </div>
 

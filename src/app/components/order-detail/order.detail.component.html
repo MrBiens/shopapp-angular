@@ -1,0 +1,52 @@
+<!-- <app-header></app-header> -->
+<div class="container">
+    <div class="confirmation-container">
+        <h1>Order Comfirm</h1>
+
+    </div>
+    <div class="row">
+        <table>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let item of cartItems">
+                    <tr>
+                        <td>
+                            <div class="product-info">
+                                <img [src]="item.product.image" alt="Product Image" class="product-image">
+                            </div>
+                            
+                        </td>
+                        <td>{{item.product.name}}</td>
+                        <td>{{item.product.price | currency:'VND':'symbol':'1.0-0'}}</td> <!-- | hyperline (output = input after)-->
+                        <td>{{item.quantity}}</td>
+                        <td>{{item.product.price*item.quantity| currency:'VND':'symbol':'1.0-0'}}</td>
+                    </tr>
+
+                </ng-container>
+     
+            
+            </tbody>
+        </table>
+        <div class="text-center mt-3">
+            <h4 class="header-text text-end">           
+                 Total: {{ calculateTotal() | currency:'VND':'symbol':'1.0-0' }}
+            </h4>
+
+            <button class="btn btn-gradient" type="button">Continue BUY?</button>
+        </div>
+       
+    </div>
+
+
+</div>
+
+<!-- <app-footer></app-footer> -->

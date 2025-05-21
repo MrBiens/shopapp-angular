@@ -1,0 +1,60 @@
+<div class="invoice-container">
+  <h1>HÓA ĐƠN BÁN HÀNG</h1>
+
+  <div class="invoice-header">
+    <div class="row">
+      <div class="col-md-6">
+        <p><strong>Nhân viên xử lý:</strong> {{ currentEmployee }}</p>
+      </div>
+      <div class="col-md-6">
+        <p><strong>Mã đơn hàng:</strong> {{ orderId }}</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <p><strong>Khách hàng:</strong> {{ userFullName }}</p>
+      </div>
+      <div class="col-md-6">
+        <p><strong>Số điện thoại:</strong> {{ phoneNumber }}</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <p><strong>Địa chỉ giao hàng:</strong> {{ address }}</p>
+      </div>
+    </div>
+  </div>
+
+  <hr />
+
+  <div class="invoice-details">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>STT</th>
+          <th>MSP</th>
+          <th>Sản phẩm</th>
+          <th>Số lượng</th>
+          <th>Đơn giá</th>
+          <th>Thành tiền</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of products; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ item.product_id }}</td>
+          <td>{{ item.product_name }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>{{ item.price | number: '1.0-0' }}đ</td>
+          <td>{{ item.quantity * item.price | number: '1.0-0' }}đ</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="invoice-summary text-end">
+    <p><strong>Tổng tiền:</strong> {{ totalMoney | number: '1.0-0' }}đ</p>
+  </div>
+</div>

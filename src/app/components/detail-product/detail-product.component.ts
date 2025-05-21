@@ -4,7 +4,7 @@ import { Environment } from 'src/app/enviroments/environment';
 import { Product } from 'src/app/models/product';
 import { ProductImage } from 'src/app/models/product.image';
 import { ProductService } from 'src/app/services/product.service';
-import { ActivatedRoute, Route } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
 
 @Component({
@@ -21,6 +21,7 @@ export class DetailProductComponent {
 
   constructor(
     private productService: ProductService,
+    private router:Router,
     private route:ActivatedRoute,
     private cartService:CartService
   ) {}
@@ -90,6 +91,7 @@ export class DetailProductComponent {
       console.error('Khong the them san pham vao gio hang vi product la null');
     }
   }
+  
 
 
   increaseQuantity():void{
@@ -101,6 +103,10 @@ export class DetailProductComponent {
       this.cartQuantity --;
     }
   }
+  goToOrder(){
+    this.router.navigate([`/order`]); // Điều hướng đến trang chi tiết sản phẩm
+  }
+  
   buyNow(){
 
   }

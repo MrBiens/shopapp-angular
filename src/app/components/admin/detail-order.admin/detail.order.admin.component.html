@@ -1,0 +1,53 @@
+<div class="order-detail-container">
+  <h2>Thông tin chi tiết đơn hàng <u>{{ orderResponse.order_id }}</u></h2>
+
+  <div class="row mb-4">
+    <!-- Cột trái -->
+    <div class="col-md-6">
+      <p><strong>Khách hàng:</strong> {{ orderResponse.full_name }}</p>
+      <p><strong>Email:</strong> {{ orderResponse.email }}</p>
+      <p><strong>Số điện thoại:</strong> {{ orderResponse.phone_number }}</p>
+      <p><strong>Địa chỉ:</strong> {{ orderResponse.address }}</p>
+      <p><strong>Ghi chú:</strong> {{ orderResponse.note || 'Không có' }}</p>
+    </div>
+
+    <!-- Cột phải -->
+    <div class="col-md-6">
+      <p><strong>Ngày đặt hàng:</strong> {{ orderResponse.order_date | date:'dd/MM/yyyy' }}</p>
+      <p><strong>Phương thức vận chuyển:</strong> {{ orderResponse.shipping_method }}</p>
+      <p><strong>Ngày giao hàng:</strong>
+        {{ orderResponse.shipping_date ? (orderResponse.shipping_date | date:'dd/MM/yyyy') : 'Chưa có' }}
+      </p>
+      <p><strong>Phương thức thanh toán:</strong> {{ orderResponse.payment_method }}</p>
+      <p><strong>Trạng thái:</strong> {{ orderResponse.status }}</p>
+      <p><strong>Tổng tiền:</strong> {{ orderResponse.total_money | currency:'VND':'symbol':'1.0-0' }}</p>
+    </div>
+  </div>
+  <button (click)="goToInvoice()" class="btn btn-primary">
+    In hóa đơn
+ </button>
+
+  <!-- Chi tiết sản phẩm (dưới cùng, full width) -->
+  <h3>Chi tiết sản phẩm</h3> 
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Sản phẩm</th>
+        <th>Ảnh</th>
+        <th>Số lượng</th>
+        <th>Giá</th>
+        <th>Tổng tiền</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of orderResponse.order_details">
+        <td>{{ item.product.name }}</td>
+        <td><img [src]="item.product.image" alt="{{ item.product.name }}" width="60"></td>
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.product.price | currency:'VND':'symbol':'1.0-0' }}</td>
+        <td>{{ (item.quantity * item.product.price) | currency:'VND':'symbol':'1.0-0' }}</td>
+      </tr>
+    </tbody>
+  </table>
+  
+</div>

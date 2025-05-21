@@ -53,7 +53,7 @@ export class RegisterComponent {
         "date_of_birth": this.dateOfBirth,
         "facebook_account_id": "",
         "google_account_id": "",
-        "role_id": 1 //        // 1: user, 2: admin
+        // "role_id": 1 //        // 1: user, 2: admin
     };
 
     this.userService.register(registerDTO).subscribe({

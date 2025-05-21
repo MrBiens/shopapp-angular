@@ -1,0 +1,64 @@
+<div id="sidebar" class="position-sticky bg-light p-2" style="min-height: 100vh;">
+  <ul class="nav flex-column">
+
+    <!-- Order Section -->
+    <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="collapse" [routerLink]="['/admin/orders']" role="button" aria-expanded="false" aria-controls="orderMenu">
+        <i class="fab fa-first-order icon"></i> Order
+      </a>
+      <div class="collapse" id="orderMenu">
+        <ul class="nav flex-column ms-3">
+          <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-circle-o"></i> Danh sách</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-plus"></i> Thêm</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-edit"></i> Sửa</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-trash"></i> Xóa</a></li>
+        </ul>
+      </div>
+    </li>
+
+    <!-- Categories Section -->
+    <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="collapse" [routerLink]="['/admin/categories']" role="button" aria-expanded="false" aria-controls="categoryMenu">
+        <i class="fab fa-canadian-maple-leaf icon"></i> Categories
+      </a>
+      <div class="collapse" id="categoryMenu">
+        <ul class="nav flex-column ms-3">
+          <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-circle-o"></i> Danh sách</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-plus"></i> Thêm</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-edit"></i> Sửa</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-trash"></i> Xóa</a></li>
+        </ul>
+      </div>
+    </li>
+
+    <!-- Products Section -->
+    <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="collapse" [routerLink]="['/admin/products']" role="button" aria-expanded="false" aria-controls="productMenu">
+        <i class="fab fa-codepen icon"></i> Products
+      </a>
+      <div class="collapse" id="productMenu">
+        <ul class="nav flex-column ms-3">
+          <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-circle-o"></i> Danh sách</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-plus"></i> Thêm</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-edit"></i> Sửa</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-trash"></i> Xóa</a></li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+
+  <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="collapse" [routerLink]="['/admin/purchase_invoice']" role="button" aria-expanded="false" aria-controls="categoryMenu">
+        <i class="fab fa-canadian-maple-leaf icon"></i> Purchase Invoice
+      </a>
+      <div class="collapse" id="categoryMenu">
+        <ul class="nav flex-column ms-3">
+          <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-circle-o"></i> Danh sách</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-plus"></i> Thêm</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-edit"></i> Sửa</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-trash"></i> Xóa</a></li>
+        </ul>
+      </div>
+    </li>
+    
+</div>

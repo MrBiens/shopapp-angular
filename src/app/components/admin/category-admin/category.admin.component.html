@@ -1,0 +1,37 @@
+<div class="container">
+  <h1>Category Admin</h1>        
+  
+  <div class="row mb-3">
+    <div class="col-md-8">
+      <button class="btn btn-success" (click)="insertCategory()">Thêm danh mục mới</button>
+    </div>      
+  </div>
+
+  <table class="table">
+    <thead class="table-light">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>          
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Khi có dữ liệu -->
+      <tr *ngFor="let category of categories; trackBy: trackByCategoryId">
+        <td>{{ category.id }}</td>
+        <td>{{ category.name }}</td>          
+        <td>
+          <div style="display: flex; gap: 10px;">
+            <button class="btn btn-primary" (click)="updateCategory(category.id)">Update</button>
+            <button class="btn btn-danger" (click)="deleteCategory(category)">Delete</button>
+          </div>
+        </td>          
+      </tr>
+
+      <!-- Khi không có dữ liệu -->
+      <tr *ngIf="categories.length === 0">
+        <td colspan="3" class="text-center"><h4>Không có danh mục nào</h4></td>
+      </tr>
+    </tbody>
+  </table>    
+</div>

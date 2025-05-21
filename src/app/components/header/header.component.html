@@ -4,14 +4,15 @@
             <a class="navbar-brand d-flex align-items-center text-white" href="#">
                 <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg" class="me-2">
                     <circle cx="25" cy="25" r="22" stroke="#4CAF50" stroke-width="3" fill="#A5D6A7" />
-                    <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-size="10" fill="#2E7D32" font-family="Arial">
+                    <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-size="10" fill="#2E7D32"
+                        font-family="Arial">
                         XTH
                     </text>
                 </svg>
                 <span class="fs-4 fw-bold">XiTrumHouse</span>
             </a>
-            
-             
+
+
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,21 +22,62 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active text-white px-2" aria-current="page" href="#">Trang chủ</a>
+                        <a class="nav-link active text-white px-2"
+                        [ngClass]="{'active':activeNavItem===0}"
+                        (click)="setActiveNavItem(0)"
+                        routerLink="/">Trang chủ</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white px-2" href="#">Thông báo</a>
+                        <a class="nav-link text-white px-2" 
+                        [ngClass]="{'active':activeNavItem===1}"
+                        (click)="setActiveNavItem(1)"
+
+                        routerLink="/">Thông báo</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white px-2" href="#">
-                            <i class="fas fa-shopping-cart"></i> Giỏ hàng
+                        <a class="nav-link text-white px-2"
+                        [ngClass]="{'active':activeNavItem===2}"
+                        (click)="setActiveNavItem(2)"
+
+                        routerLink="/order">
+                        <i class="fas fa-shopping-cart"></i> Giỏ hàng
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white px-2" href="#">Đăng nhập</a>
+                    <!-- Nếu user đã đăng nhập -->
+                    <li class="nav-item"
+                    *ngIf="this.userResponse">
+                        <div class="nav-link dropdown" ngbDropdown>
+                            <a class="dropdown-toggle" ngbDropdownToggle role="button">
+                            {{ this.userResponse.full_name }}
+                            </a>
+                            <div ngbDropdownMenu>
+                                <button ngbDropdownItem (click)="handleUserMenu(0)">Tài khoản của tôi</button>
+                                <button ngbDropdownItem 
+                                    *ngIf="userResponse.role_response.name == 'ADMIN'" 
+                                    routerLink="/admin">
+                                    Quản lý
+                                </button>
+
+                                <!-- Nếu KHÔNG phải admin thì hiện 'Đơn mua' -->
+                                <button ngbDropdownItem 
+                                    *ngIf="userResponse.role_response.name != 'ADMIN'" 
+                                    (click)="handleUserMenu(1)">
+                                    Đơn mua
+                                </button>
+                                <button ngbDropdownItem (click)="handleUserMenu(2)">Đăng xuất</button>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item" 
+                    [ngClass]="{'active':activeNavItem===3}"
+                    (click)="setActiveNavItem(3)"
+                    *ngIf="!userResponse">
+                        <a class="nav-link text-white px-2"
+                        routerLink="/login">Đăng nhập</a>
                     </li>
                 </ul>
             </div>
+            
         </div>
     </nav>
 </header>

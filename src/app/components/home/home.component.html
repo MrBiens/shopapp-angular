@@ -20,8 +20,8 @@
     </div>
     <div class="row">
         <div class="col-lg-4 col-md-6 col-sm-12" *ngFor="let product of products">
-            <div class="product-item" (click)="goToProductDetail(product.id)">
-                <img [src]="product.url" alt="Product Image" class="product-image">
+            <div class="product-item"  [routerLink]="['/productdetail', product.id]">
+                <img [src]="product.image" alt="Product Image" class="product-image">
                 <h3 class="product-name">{{product.name}}</h3>
                 <p class="product-description">{{product.description}}</p>
                 <p class="product-price">Gia: {{product.price}}</p>
@@ -43,7 +43,7 @@
 
 </div>
 <div class="d-flex justify-content-center">
-    <nav aria-label="Page navigation">
+    <nav aria-label="Page navigation" style="cursor: pointer;">
         <ul class="pagination">
             <li class="page-item" *ngIf="currentPage > 1">
                 <a class="page-link" href="#" (click)="onPageChange(1)">First</a>

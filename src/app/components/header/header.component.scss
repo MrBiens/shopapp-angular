@@ -30,3 +30,10 @@ header {
     background-color: rgb(127, 668, 255);
     color: white !important;
 }
+.nav-item.active{
+    background-color: rgb(127, 668, 255);
+    color: white !important;
+}
+.dropdown-toggle {
+  cursor: pointer;
+}

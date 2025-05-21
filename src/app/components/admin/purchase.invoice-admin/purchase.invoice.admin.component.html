@@ -1,0 +1,77 @@
+<form [formGroup]="purchaseInvoiceDetailForm" (ngSubmit)="submit()" class="p-3">
+  <div class="form-group mb-3">
+    <label for="supplier">Nhà cung cấp:</label>
+    <select class="form-control" formControlName="supplier_id" id="supplier">
+      <option value="" disabled>-- Chọn nhà cung cấp --</option>  <!-- Bỏ selected để Angular tự quản lý -->
+      <option *ngFor="let supplier of suppliers" [value]="supplier.supplier_id">
+        {{ supplier.name }}
+      </option>
+    </select>
+    <div *ngIf="purchaseInvoiceDetailForm.get('supplier_id')?.invalid && purchaseInvoiceDetailForm.get('supplier_id')?.touched" class="text-danger">
+      Vui lòng chọn nhà cung cấp
+    </div>
+  </div>
+
+  <div formArrayName="details">
+    <div *ngFor="let detail of details.controls; let i = index" [formGroupName]="i" class="border p-3 mb-3 rounded bg-light position-relative">
+      <div class="form-row row">
+        <div class="form-group col-md-5 position-relative">
+          <label>Sản phẩm {{i + 1}}:</label>
+          <input
+            #productInput
+            type="text"
+            class="form-control"
+            formControlName="product_name"
+            (input)="searchProduct(i, productInput.value)"
+            placeholder="Tìm sản phẩm..."
+            autocomplete="off"
+          />
+          <ul *ngIf="productOptions[i] && productOptions[i].length > 0" class="list-group position-absolute z-3 w-100 mt-1 shadow-sm" style="max-height: 200px; overflow-y: auto;">
+            <li
+              *ngFor="let product of productOptions[i]"
+              class="list-group-item list-group-item-action"
+              (click)="selectProduct(i, product)"
+              style="cursor: pointer;"
+            >
+              {{ product.name }} - {{ product.price | currency:'VND':'symbol' }}
+            </li>
+          </ul>
+        </div>
+
+        <div class="form-group col-md-3">
+          <label>Giá nhập (VND):</label>
+          <input
+            type="number"
+            class="form-control"
+            formControlName="price"
+            min="0"
+          />
+        </div>
+
+        <div class="form-group col-md-3">
+          <label>Số lượng:</label>
+          <input
+            type="number"
+            class="form-control"
+            formControlName="quantity"
+            min="1"
+          />
+        </div>
+
+        <div class="form-group col-md-1 d-flex align-items-end">
+          <button type="button" class="btn btn-danger btn-sm" (click)="removeDetail(i)">Xóa</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <button type="button" class="btn btn-secondary" (click)="addDetail()">+ Thêm dòng</button>
+  </div>
+
+  <div>
+    <button type="submit" class="btn btn-primary" [disabled]="purchaseInvoiceDetailForm.invalid">
+      Gửi hoá đơn nhập hàng
+    </button>
+  </div>
+</form>
