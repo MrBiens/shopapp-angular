@@ -87,6 +87,7 @@ export class DetailProductComponent {
     debugger;
     if(this.productDetail?.product){
       this.cartService.addToCart(this.productDetail.product.id,this.cartQuantity);
+      alert('Thêm sản phẩm vào giỏ hàng thành công');
     }else{
       console.error('Khong the them san pham vao gio hang vi product la null');
     }

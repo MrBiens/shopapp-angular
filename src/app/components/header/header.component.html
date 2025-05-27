@@ -32,7 +32,7 @@
                         [ngClass]="{'active':activeNavItem===1}"
                         (click)="setActiveNavItem(1)"
 
-                        routerLink="/">Thông báo</a>
+                        routerLink="/">Tin tức</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white px-2"
@@ -47,7 +47,7 @@
                     <li class="nav-item"
                     *ngIf="this.userResponse">
                         <div class="nav-link dropdown" ngbDropdown>
-                            <a class="dropdown-toggle" ngbDropdownToggle role="button">
+                            <a class="dropdown-toggle" style="color: white;" ngbDropdownToggle role="button">
                             {{ this.userResponse.full_name }}
                             </a>
                             <div ngbDropdownMenu>

@@ -19,8 +19,18 @@ import { UpdateCategoryAdminComponent } from './components/admin/category-admin/
 import { InsertCategoryAdminComponent } from './components/admin/category-admin/insert/insert.category.admin.component';
 import { UpdateProductAdminComponent } from './components/admin/product-admin/update/update.product.admin.component';
 import { InsertProductAdminComponent } from './components/admin/product-admin/insert/insert.product.admin.component';
-import { PurchaseInvoiceAdminComponent } from './components/admin/purchase.invoice-admin/purchase.invoice.admin.component';
-import { PurchaseInvoiceDetailAdminComponent } from './components/admin/purchase.invoice.detail-admin/purchase.invoice.detail.admin.component';
+import { PurchaseInvoiceDetailAdminComponent } from './components/admin/purchase.invoice-admin/update/purchase.invoice.detail.admin.component';
+import { PurchaseInvoiceAdminComponent } from './components/admin/purchase.invoice-admin/purchase.invoice-admin.component';
+import { InsertPurchaseInvoiceAdminComponent } from './components/admin/purchase.invoice-admin/insert/insert.purchase.invoice.admin.component';
+import { SupplierAdminComponent } from './components/admin/supplier-admin/supplier.admin.component';
+import { CouponAdminComponent } from './components/admin/coupon-admin/coupon.admin.component';
+import { NotificationAdminComponent } from './components/admin/notification-admin/notification.admin.component';
+import { InsertNotificationAdminComponent } from './components/admin/notification-admin/insert/insert.notification.admin.component';
+import { UpdateNotificationAdminComponent } from './components/admin/notification-admin/update/update.notification.admin.component';
+import { InsertCouponAdminComponent } from './components/admin/coupon-admin/insert/insert.coupon.admin.component';
+import { UpdateCouponAdminComponent } from './components/admin/coupon-admin/update/update.coupon.admin.component';
+import { InsertSupplierAdminComponent } from './components/admin/supplier-admin/insert/insert.supplier.admin.component';
+import { UpdateSupplierAdminComponent } from './components/admin/supplier-admin/update/update.supplier.admin.component';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'productdetail/:id', component: DetailProductComponent },
@@ -37,14 +47,36 @@ const routes: Routes = [
     { path: 'orders', component: OrderAdminComponent },
     { path: 'orders/:id', component: DetailOrderAdminComponent }, 
     { path: 'orders/:id/invoice', component: InvoicePrintComponent },
+
     { path: 'categories', component: CategoryAdminComponent },
     { path: 'categories/insert', component: InsertCategoryAdminComponent },
     { path: 'categories/update/:id', component: UpdateCategoryAdminComponent },
+
     { path: 'products', component: ProductAdminComponent },
     { path: 'products/update/:id', component: UpdateProductAdminComponent },
     { path: 'products/create', component: InsertProductAdminComponent },
+
     { path: 'purchase_invoice', component: PurchaseInvoiceAdminComponent },
+    { path: 'purchase_invoice/create', component: InsertPurchaseInvoiceAdminComponent },
     { path: 'purchase_invoice_detail', component: PurchaseInvoiceDetailAdminComponent },
+
+
+    { path: 'suppliers', component: SupplierAdminComponent },
+    { path: 'suppliers/create', component: InsertSupplierAdminComponent },
+    { path: 'suppliers/edit/:id', component: UpdateSupplierAdminComponent },
+
+    { path: 'coupons', component: CouponAdminComponent},
+    { path: 'coupons/create', component: InsertCouponAdminComponent},
+    { path: 'coupons/update/:id', component: UpdateCouponAdminComponent},
+
+    { path: 'notifications', component: NotificationAdminComponent},
+    { path: 'notifications/create', component: InsertNotificationAdminComponent},
+    { path: 'notifications/update/:id', component: UpdateNotificationAdminComponent}
+
+
+
+
+
 
   ]
   }

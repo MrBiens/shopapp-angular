@@ -1,20 +1,23 @@
 #sidebar {
-    background-color: black !important;
+    background-color: #ffe6f0 !important; /* sáng hồng */
     height: 100vh;
     overflow-y: auto;
 }
 
 #sidebar a,
 #sidebar .nav-link {
-    color: red !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    color: #c2185b !important; /* hồng đậm để dễ đọc trên nền sáng */
+    border-bottom: 1px solid rgba(194, 24, 91, 0.2); /* đường viền hồng nhạt */
     padding: 10px 15px;
     text-decoration: none;
-    background-color: black !important;
+    background-color: #ffe6f0 !important; /* đồng bộ với nền sidebar */
 }
-#sidebar a:hover{
-    background-color: #0056b3;
+
+#sidebar a:hover {
+    background-color: #f8bbd0; /* màu hồng nhạt hơn khi hover */
 }
-.icon{
+
+.icon {
     padding: 5px;
+    color: #c2185b; /* biểu tượng cũng hồng đậm */
 }

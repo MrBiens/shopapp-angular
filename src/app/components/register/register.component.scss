@@ -1,77 +1,128 @@
 .container {
-    color: white;
-    min-height: 100vh; /* Cho container cao tối thiểu full màn hình */
+    color: #4a4a4a;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;    
+    background: linear-gradient(to bottom right, #fff0f0, #fdeeea);
+    padding: 20px;
 }
+
 .register-form {
-    background-color: rgb(12,12,55);
-    border-radius: 10px;
-    padding: 30px;
-    border: 1px solid rgb(29,33,54);
+    background-color: rgba(255, 250, 250, 0.95);
+    border-radius: 15px;
+    padding: 35px 30px;
+    border: 1px solid #f5c6cb;
     width: 100%;
-    max-width: 400px; /* thu nhỏ form */
-}
-.divider{
-    border-top: 1px solid white;
-    margin: 10px 0;
-}
-.btn-gradient{
-    background: linear-gradient(to right,rgb(225,64,180),rgb(126,43,237)) ;
-    width: 100%;
-    color: white;
-    border-radius: 30px;
-    cursor: pointer;
-    margin-top: 10px;
+    max-width: 420px;
+    box-shadow: 0 8px 20px rgba(250, 180, 190, 0.2);
 }
 
-.divider-nospace {
-    border-top: 1px solid white;
-    margin: 10px 0;
+.register-header {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 30px;
+    font-weight: bold;
+    color: #d16b86;
 }
 
-.form-group{
-    border: none;
+.form-group {
+    margin-bottom: 20px;
+    position: relative;
 }
+
+.form-label {
+    font-weight: 500;
+    margin-bottom: 6px;
+    display: inline-block;
+    color: #6b4f4f;
+}
+
 .form-control {
-    background-color: transparent;
-    color: white;
-    height: 40px;
-    line-height: 40px;
+    background-color: rgba(255, 255, 255, 0.7);
+    color: #4a4a4a;
+    height: 42px;
     padding: 0 12px;
-    border: none; /* Loại bỏ border toàn bộ */
-    border-radius: 6px;
+    border: 1px solid #f7cdd2;
+    border-radius: 8px;
     box-sizing: border-box;
+    width: 100%;
+    font-size: 14px;
 }
+
 .form-control:focus {
-    background-color: transparent;
-    border: none;
-    color: white;
-    outline: 1px solid; /* Đường viền màu xanh khi focus */
+    background-color: rgba(255, 255, 255, 0.9);
+    border-color: #f49cab;
+    outline: none;
 }
+
 .form-control::placeholder {
-    color: white; /* Thay đổi màu chữ placeholder thành trắng */
-    opacity: 0.5; /* Đảm bảo placeholder không mờ */
+    color: #aaa;
+    opacity: 0.8;
 }
+
 .password-toggle {
     position: absolute;
     top: 50%;
     right: 12px;
     transform: translateY(-50%);
-    font-size: 20px;
+    font-size: 18px;
     cursor: pointer;
-    color: white;
+    color: #b87b87;
 }
-.password-field {
-    position: relative; //* Đặt icon bên trong trường mật khẩu */
-}
+
 .password-field .form-control {
-    padding-right: 40px; /* Chừa khoảng trống để icon không đè chữ */
+    padding-right: 40px;
 }
+
+.text-danger {
+    font-size: 13px;
+    margin-top: 4px;
+    color: #e57373;
+}
+
+.divider, .divider-nospace {
+    border-top: 1px solid #f2d7da;
+    margin: 15px 0;
+}
+
+.checkbox-text {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    color: #5c5c5c;
+}
+
 .clause-link {
-    color: rgb(105,244,181);
-    text-decoration: none;
-    font-weight: bold;
+    color: #d16b86;
+    margin-left: 5px;
+    text-decoration: underline;
+}
+
+.btn-gradient {
+    background: linear-gradient(to right, #f6abb6, #fcd5ce);
+    width: 100%;
+    color: white;
+    border-radius: 30px;
+    padding: 10px 0;
+    font-weight: 600;
+    font-size: 16px;
+    border: none;
+    transition: background 0.3s;
+}
+
+.btn-gradient:hover {
+    background: linear-gradient(to right, #f49cab, #f8cfc7);
+}
+
+.register-text {
+    font-size: 14px;
+    text-align: center;
+    margin-top: 12px;
+    color: #6e4f4f;
+}
+
+.register-link {
+    color: #d16b86;
+    text-decoration: underline;
 }

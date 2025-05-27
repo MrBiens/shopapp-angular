@@ -17,27 +17,27 @@ export class SupplierService {
       map(response =>  response.result as Supplier[])
     );
   }
-    getSupplierById(supplierId: number): Observable<Supplier> {
-        return this.http.get<any>(`${this.apiSupplierUrl}/${supplierId}`).pipe(
-        map(response => response.result as Supplier)
-        );
-    }
+  getSupplierById(supplierId: number): Observable<Supplier> {
+      return this.http.get<any>(`${this.apiSupplierUrl}/${supplierId}`).pipe(
+      map(response => response.result as Supplier)
+      );
+  }
 
 
-    createSupplier(supplier: Supplier): Observable<Supplier> {
-        return this.http.post<any>(`${this.apiSupplierUrl}/${supplier.supplier_id}`, supplier).pipe(
-        map(response => response.result as Supplier)
-        );
-    }
+  createSupplier(supplier: Supplier): Observable<Supplier> {
+      return this.http.post<any>(`${this.apiSupplierUrl}/${supplier.supplier_id}`, supplier).pipe(
+      map(response => response.result as Supplier)
+      );
+  }
 
-    updateSupplier(supplier: Supplier): Observable<Supplier> {
-        return this.http.put<any>(`${this.apiSupplierUrl}/${supplier.supplier_id}`, supplier).pipe(
-        map(response => response.result as Supplier)
-        );
-    }
+  updateSupplier(supplier: Supplier): Observable<Supplier> {
+      return this.http.put<any>(`${this.apiSupplierUrl}/${supplier.supplier_id}`, supplier).pipe(
+      map(response => response.result as Supplier)
+      );
+  }
 
-    deleteSupplier(supplierId: number): Observable<string> {
-        return this.http.delete<string>(`${this.apiSupplierUrl}/${supplierId}`);
-    }
+  deleteSupplier(supplierId: number): Observable<string> {
+      return this.http.delete<string>(`${this.apiSupplierUrl}/${supplierId}`);
+  }
 
 }

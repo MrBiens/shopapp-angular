@@ -60,6 +60,7 @@ export class RegisterComponent {
       next:(response:any) => {
         debugger      
         if(response.status===200||response.status===201){
+          alert("Đăng ký thành công.Bạn sẽ được đưa tới trang đăng nhập");
           this.router.navigate(['/login']);
         }else{
 

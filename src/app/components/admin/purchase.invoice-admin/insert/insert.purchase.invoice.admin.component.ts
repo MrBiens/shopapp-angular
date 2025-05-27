@@ -8,10 +8,10 @@ import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-purchase.invoice.admin',
-  templateUrl: './purchase.invoice.admin.component.html',
-  styleUrls: ['./purchase.invoice.admin.component.scss']
+  templateUrl: './insert.purchase.invoice.admin.component.html',
+  styleUrls: ['./insert.purchase.invoice.admin.component.scss']
 })
-export class PurchaseInvoiceAdminComponent implements OnInit {
+export class InsertPurchaseInvoiceAdminComponent implements OnInit {
   suppliers: Supplier[] = [];
   purchaseInvoiceDetailForm!: FormGroup;
   productOptions: Product[][] = []; // Gợi ý sản phẩm theo từng dòng

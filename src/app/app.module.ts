@@ -37,8 +37,18 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
-import { PurchaseInvoiceAdminComponent } from './components/admin/purchase.invoice-admin/purchase.invoice.admin.component';
-import { PurchaseInvoiceDetailAdminComponent } from './components/admin/purchase.invoice.detail-admin/purchase.invoice.detail.admin.component';
+import { PurchaseInvoiceDetailAdminComponent } from './components/admin/purchase.invoice-admin/update/purchase.invoice.detail.admin.component';
+import { PurchaseInvoiceAdminComponent } from './components/admin/purchase.invoice-admin/purchase.invoice-admin.component';
+import { InsertPurchaseInvoiceAdminComponent } from './components/admin/purchase.invoice-admin/insert/insert.purchase.invoice.admin.component';
+import { SupplierAdminComponent } from './components/admin/supplier-admin/supplier.admin.component';
+import { CouponAdminComponent } from './components/admin/coupon-admin/coupon.admin.component';
+import { NotificationAdminComponent } from './components/admin/notification-admin/notification.admin.component';
+import { UpdateCouponAdminComponent } from './components/admin/coupon-admin/update/update.coupon.admin.component';
+import { InsertNotificationAdminComponent } from './components/admin/notification-admin/insert/insert.notification.admin.component';
+import { UpdateNotificationAdminComponent } from './components/admin/notification-admin/update/update.notification.admin.component';
+import { InsertCouponAdminComponent } from './components/admin/coupon-admin/insert/insert.coupon.admin.component';
+import { InsertSupplierAdminComponent } from './components/admin/supplier-admin/insert/insert.supplier.admin.component';
+import { UpdateSupplierAdminComponent } from './components/admin/supplier-admin/update/update.supplier.admin.component';
 
 @NgModule({
   declarations: [
@@ -48,22 +58,41 @@ import { PurchaseInvoiceDetailAdminComponent } from './components/admin/purchase
     HeaderComponent,
     FooterComponent,
     OrderComponent, 
+
     DetailProductComponent, 
     OrderConfirmComponent, 
     LoginComponent, 
     RegisterComponent,
     SidebarComponent,
     OrderAdminComponent,
+
     DetailOrderAdminComponent,
     InvoicePrintComponent,
+
     ProductAdminComponent,
     UpdateProductAdminComponent,
     InsertProductAdminComponent,
+
     CategoryAdminComponent,
     InsertCategoryAdminComponent,
     UpdateCategoryAdminComponent,
+    
     PurchaseInvoiceAdminComponent,
-    PurchaseInvoiceDetailAdminComponent
+    InsertPurchaseInvoiceAdminComponent,
+    PurchaseInvoiceDetailAdminComponent,
+
+    SupplierAdminComponent,
+    InsertSupplierAdminComponent,
+    UpdateSupplierAdminComponent,
+
+
+    CouponAdminComponent,
+    InsertCouponAdminComponent,
+    UpdateCouponAdminComponent,
+
+    NotificationAdminComponent,
+    InsertNotificationAdminComponent,
+    UpdateNotificationAdminComponent
 
     
   ],

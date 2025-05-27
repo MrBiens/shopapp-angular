@@ -1,0 +1,28 @@
+<h3>{{ isEdit ? 'Cập nhật nhà cung cấp' : 'Thêm nhà cung cấp mới' }}</h3>
+
+<form (ngSubmit)="saveSupplier()" #supplierForm="ngForm">
+  <input type="hidden" [(ngModel)]="selectedSupplier.supplier_id" name="supplier_id">
+
+  <div class="form-group">
+    <label>Tên:</label>
+    <input type="text" class="form-control" [(ngModel)]="selectedSupplier.name" name="name" required>
+  </div>
+
+  <div class="form-group">
+    <label>Email:</label>
+    <input type="email" class="form-control" [(ngModel)]="selectedSupplier.email" name="email" required>
+  </div>
+
+  <div class="form-group">
+    <label>SĐT:</label>
+    <input type="text" class="form-control" [(ngModel)]="selectedSupplier.phoneNumber" name="phoneNumber" required>
+  </div>
+
+  <div class="form-group">
+    <label>Địa chỉ:</label>
+    <input type="text" class="form-control" [(ngModel)]="selectedSupplier.address" name="address" required>
+  </div>
+
+  <button type="submit" class="btn btn-primary">{{ isEdit ? 'Cập nhật' : 'Thêm mới' }}</button>
+  <button type="button" class="btn btn-secondary" (click)="cancelEdit()">Hủy</button>
+</form>

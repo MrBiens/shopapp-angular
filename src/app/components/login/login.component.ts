@@ -97,12 +97,16 @@ export class LoginComponent implements OnInit{
               this.userService.saveUserResponseToLocalStorage(userResponse);
               this.userResponse=userResponse;
 
-              console.log(userResponse)
-              if(this.userResponse?.role_response.name == 'ADMIN'){
-                this.router.navigate(['admin']);
+              alert("Đăng nhập thành công: " + this.userResponse?.full_name);
 
+              if(this.userResponse?.role_response.name == 'ADMIN'){
+                this.router.navigate(['admin']).then(() => {
+                  window.location.reload();
+                });
               }else if (this.userResponse?.role_response.name=='USER'){
-                this.router.navigate(['/']);
+                this.router.navigate(['/']).then(() => {
+                  window.location.reload();
+                });             
               }
 
 

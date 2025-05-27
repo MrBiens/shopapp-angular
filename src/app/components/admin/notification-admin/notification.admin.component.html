@@ -1,0 +1,40 @@
+<div class="container p-4">
+  <h2 class="mb-4">Quản lý tin tức</h2>
+
+  <div class="row mb-3">
+    <div class="col-md-8">
+      <button class="btn btn-success" [routerLink]="['/admin/notifications/create']">Thêm thông báo mới</button>
+    </div>      
+  </div>
+
+ 
+
+  <!-- Notification List -->
+  <table class="table table-bordered">
+    <thead class="table-light">
+      <tr>
+        <th>Ảnh</th>
+        <th>Tiêu đề</th>
+        <th>Kiểu thông báo</th>
+        <th>Nội dung</th>
+        <th>Ngày tạo</th>
+        <th>Ngày sửa</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let notify of notifications">
+        <td>
+        <img *ngIf="notify.image" 
+             [src]="notify.image" 
+             alt="image"
+             width="80" height="auto" />
+      </td>
+        <td>{{ notify.title }}</td>
+        <td>{{ notify.type }}</td>
+        <td>{{ notify.content }}</td>
+        <td>{{ notify.createAt | date: 'short' }}</td>
+        <td>{{ notify.updateAt | date: 'short' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

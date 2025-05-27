@@ -1,6 +1,12 @@
-import { PurchaseInvoiceDetail } from "./purchase.invoice detail";
-
 export interface PurchaseInvoice {
+  createAt: Date;        
+  updateAt: Date;
+  invoice_id: number;
   supplier_id: number;
-  details: PurchaseInvoiceDetail[];
+  supplier_name: string;
+  employee_id: number;
+  employee_name: string;
+  invoice_date: Date;
+  total_amount: number;
 }
+

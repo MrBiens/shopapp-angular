@@ -1,39 +1,40 @@
 header {
-    background-color: rgba(0, 0, 0, 0);
-    color: rgb(173, 178, 203);
+    background-color: #FFD1DC; /* hồng pastel nhạt */
+    color: #555; /* xám đậm vừa phải */
+    border-bottom: 1px solid #E5E5E5;
 }
 
 .navbar {
-    background-color: rgba(0, 0, 0, 0);
+    background-color: #FFEFF5; /* đồng bộ với header */
 }
 
 .navbar .container {
-    background-color: rgba(0, 0, 0, 0);
+    background-color: transparent;
 }
 
-.navbar .container .navbar-brand {
-    color: rgb(173, 178, 203);
-}
-
+.navbar .container .navbar-brand,
 .navbar .container .navbar-nav .nav-link {
-    color: rgb(173, 178, 203);
-    border-radius: 18px;
-    padding: 8px 16px;
+    color: #666; /* xám đậm, dễ đọc */
+    font-weight: 500;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 20px;  /* bo tròn góc mềm mại */
+    padding: 8px 18px;    /* rộng rãi dễ bấm */
+    margin: 0 6px;        /* cách đều nhau */
 }
 
 .navbar .container .navbar-nav .nav-link:hover {
-    background-color: rgb(173, 178, 203);
-    color: rgb(173, 178, 203);
+    background-color: #F7C8D3; /* hồng pastel nhạt hơn */
+    color: #333;
+    text-decoration: none;
 }
 
-.navbar .container .navbar-nav .nav-link.active {
-    background-color: rgb(127, 668, 255);
+.navbar .container .navbar-nav .nav-link.active,
+.nav-item.active {
+    background-color: #FF8DAA; /* hồng tươi pastel, nổi bật nhưng nhẹ nhàng */
     color: white !important;
+    box-shadow: 0 4px 8px rgba(255, 141, 170, 0.3);
 }
-.nav-item.active{
-    background-color: rgb(127, 668, 255);
-    color: white !important;
-}
+
 .dropdown-toggle {
-  cursor: pointer;
+    cursor: pointer;
 }

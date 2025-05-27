@@ -1,0 +1,29 @@
+<form [formGroup]="notificationForm" (ngSubmit)="submitForm()" class="mb-5">
+  <div class="row g-3">
+    <div class="col-md-6">
+      <label class="form-label">Tiêu đề:</label>
+      <input formControlName="title" class="form-control" placeholder="Enter title" />
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Kiểu thông báo:</label>
+      <select formControlName="type" class="form-select">
+        <option value="SYSTEM">Hệ thống</option>
+        <option value="COUPON">Mã giảm giá</option>
+      </select>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Ảnh:</label>
+      <input type="file" (change)="onFileSelected($event)" class="form-control" />
+    </div>
+    <div class="col-md-12">
+      <label class="form-label">Nội dung:</label>
+      <textarea formControlName="content" rows="4" class="form-control" placeholder="Enter content..."></textarea>
+    </div>
+  </div>
+
+  <div class="mt-3">
+    <button class="btn btn-primary" type="submit" [disabled]="loading">
+      {{ loading ? 'Creating...' : 'Create Notification' }}
+    </button>
+  </div>
+</form>

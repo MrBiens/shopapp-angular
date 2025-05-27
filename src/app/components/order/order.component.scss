@@ -1,72 +1,83 @@
-.container{
-    color: white;
+.container {
+    color: #4B4B5A; /* tím xám đậm dễ đọc trên nền sáng */
+    background-color: #FFF5F8; /* hồng pastel rất nhạt, nền trang */
+    padding: 20px;
+    border-radius: 15px;
 }
-.intro-section{
-    color:white;
+
+.intro-section {
+    color: #80314F; /* hồng đậm nhẹ, nổi bật */
     padding: 20px;
     text-align: center;
 }
 
-.product-header{
-    color: rgb(233,66,176);
+.product-header {
+    color: #E942B0; /* giữ màu hồng tím tươi */
 }
 
-.form-control{
-    background-color: rgb(19,23,42);
-    border: 1px solid rgb(29,33,54);
-    color: white;
-}
-
-.form-control:focus{
-    background-color: rgb(19,23,42);
-    border-color: white;
-}
-.form-label{
-    color: white;
-}
-
-.product-order{
-    color:rgb(105,244,181)
-}
-table{
-    width: 100%;
-    color: white;
-    background-color: rgb(19,23,42);
-    border: 1px solid white;
+.form-control {
+    background-color: #FFEFF5; /* hồng pastel nhạt */
+    border: 1px solid #FFBCD9; /* viền hồng nhạt */
+    color: #4B4B5A; /* chữ tím xám đậm */
     border-radius: 10px;
-    // border-spacing: 0;
-    border-collapse: separate;
+    transition: border-color 0.3s ease;
 }
-th,td{
-    padding: 10px;
+
+.form-control:focus {
+    background-color: #FFD9E6; /* hồng pastel sáng hơn khi focus */
+    border-color: #E942B0; /* viền hồng đậm */
+    color: #4B4B5A;
+}
+
+.form-label {
+    color: #80314F; /* hồng đậm */
+}
+
+.product-order {
+    color: #57D9A3; /* xanh nhẹ, tạo điểm nhấn nhưng nhẹ nhàng */
+}
+
+table {
+    width: 100%;
+    color: #4B4B5A; /* tím xám đậm */
+    background-color: #FFEFF5; /* nền hồng pastel nhạt */
+    border: 1px solid #FFBCD9; /* viền hồng nhạt */
+    border-radius: 10px;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+}
+
+th, td {
+    padding: 12px;
     text-align: center;
-    border: 1px solid rgb(29,33,54);
+    border: 1px solid #FFBCD9;
+    border-radius: 8px;
 }
 
 .product-image {
-    width: 100%; //    kích thước rong ảnh sản phẩm bao phu toan bo */
-    height: 100px; //  kích thước cao ảnh sản phẩm bao phu toan bo */
+    width: 100%;
+    height: 100px;
     object-fit: cover;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
-
+    border-radius: 10px;
+    margin: 10px auto;
 }
 
-.btn-gradient{
-    background: linear-gradient(to right,rgb(225,64,180),rgb(126,43,237)) ;
+.btn-gradient {
+    background: linear-gradient(to right, #E140B4, #7E2BED);
     width: 200px;
     color: white;
     border-radius: 30px;
     cursor: pointer;
-}
-input::placeholder{
-    color: white;
-    opacity: 0.2;
-}
-textarea::placeholder{
-    color: white;
-    opacity: 0.2;
+    border: none;
+    transition: background 0.3s ease;
 }
 
+.btn-gradient:hover {
+    background: linear-gradient(to right, #7E2BED, #E140B4);
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #80314F;
+    opacity: 0.4;
+}

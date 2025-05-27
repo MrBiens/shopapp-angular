@@ -1,1 +1,35 @@
-<p>supplier.admin works!</p>
+<div class="container">
+  <h2>Quản lý nhà cung cấp</h2>
+  <div class="col-md-8 mb-3">
+    <button class="btn btn-success" [routerLink]="['/admin/suppliers/create']">Thêm nhà cung cấp mới</button>
+  </div>
+
+  <hr>
+
+  <!-- Danh sách -->
+  <table class="table table-bordered table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th>ID</th>
+        <th>Tên</th>
+        <th>Email</th>
+        <th>SĐT</th>
+        <th>Địa chỉ</th>
+        <th>Hành động</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let supplier of suppliers">
+        <td>{{ supplier.supplier_id }}</td>
+        <td>{{ supplier.name }}</td>
+        <td>{{ supplier.email }}</td>
+        <td>{{ supplier.phoneNumber }}</td>
+        <td>{{ supplier.address }}</td>
+        <td>
+          <button class="btn btn-primary btn-sm me-2" (click)="editSupplier(supplier)">Sửa</button>
+          <button class="btn btn-danger btn-sm" (click)="deleteSupplier(supplier.supplier_id)">Xoá</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

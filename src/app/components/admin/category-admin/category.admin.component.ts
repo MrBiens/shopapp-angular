@@ -54,7 +54,7 @@ export class CategoryAdminComponent implements OnInit {
 
     deleteCategory(category: Category) {      
       const confirmation = window
-      .confirm('Are you sure you want to delete this category?');
+      .confirm('Chắc chắn muốn xóa danh mục này?');
       if (confirmation) {
         debugger
         this.categoryService.deleteCategory(category.id).subscribe({

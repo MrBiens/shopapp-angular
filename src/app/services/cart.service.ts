@@ -11,7 +11,7 @@ export class CartService {
     constructor(
     ){
         //lay du lieu gio hang tu localstorage khi khoi tao service
-        const storedCart = localStorage.getItem('cart');
+        const storedCart = localStorage.getItem(this.getCartKey());
         if(storedCart){
             this.cart=new Map(JSON.parse(storedCart));
         }
@@ -28,6 +28,14 @@ export class CartService {
         this.saveCartToLocalStorage();
     }
 
+    private getCartKey(): string {
+        const userResponseJSON= localStorage.getItem('user');
+        const user = JSON.parse(userResponseJSON!);
+        // return `cart${user?.id || 'guest'}`;
+
+        return `cart:${user?.id}`;
+    }
+
 
 
     getCart(): Map<number,number> {
@@ -35,7 +43,7 @@ export class CartService {
     }
 
     saveCartToLocalStorage(){
-        localStorage.setItem('cart',JSON.stringify(Array.from(this.cart.entries())))
+        localStorage.setItem(this.getCartKey(),JSON.stringify(Array.from(this.cart.entries())))
     }
 
     clearCart():void{

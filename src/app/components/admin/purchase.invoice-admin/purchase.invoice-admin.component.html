@@ -1,0 +1,38 @@
+<div class="container mt-4">
+  <h2>Danh sách hóa đơn nhập</h2>
+  
+  <!-- <div class="text-end mb-3">
+    <button class="btn btn-primary" (click)="goToCreateInvoice()">
+        Tạo hóa đơn mới
+    </button>
+ </div> -->
+
+ <button class="btn btn-primary" [routerLink]="['/admin/purchase_invoice/create']">
+    Tạo hóa đơn mới
+</button>
+
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Mã HĐ</th>
+        <th>Mã nhà cung cấp</th>
+        <th>Tên nhà cung cấp</th>
+        <th>Mã Nhân viên</th>
+        <th>Tên Nhân viên</th>
+        <th>Ngày lập</th>
+        <th>Tổng tiền</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let invoice of invoices">
+        <td>{{ invoice.invoice_id }}</td>
+        <td>{{ invoice.supplier_id }}</td>
+        <td>{{ invoice.supplier_name }}</td>
+        <td>{{ invoice.employee_id }}</td>
+        <td>{{ invoice.employee_name }}</td>
+        <td>{{ invoice.invoice_date | date:'dd/MM/yyyy HH:mm' }}</td>
+        <td>{{ invoice.total_amount | number:'1.0-0' }} đ</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

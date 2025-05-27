@@ -1,22 +1,22 @@
-
-<!-- <app-header></app-header> -->
 <div class="container">
-    <h1> Welcome to the Home Page</h1>
     <div class="intro-section">
         <h1>Đây là trang Home. </h1>
         <p>Trang này hiển thị danh sách các sản phẩm, kèm ảnh</p>
-        <p>Cac ban co the chon xem san pham va mua hang tai day</p>
         <p>Chúc các bạn có những trải nghiệm thú vị</p>
     </div>
     <div class="search-box">
-        <input type="text" class="form-control search-input" placeholder="Tim san pham..." [(ngModel)]="keyword" />
+        <input type="text" class="form-control search-input" placeholder="Tìm sản phẩm..." [(ngModel)]="keyword" />
+        
         <select class="form-control product-category" [(ngModel)]="selectedCategoryId">
-            <option [value]="0">Danh muc san pham</option>
+            <option [value]="0">Danh mục sản phẩm</option>
             <option *ngFor="let category of categories" [value]="category.id">
-                {{category.name}}
+            {{category.name}}
             </option>
         </select>
-        <button class="btn btn-primary ml-2" (click)="searchProducts()">Tim kiem</button>
+        
+        <button class="btn btn-primary search-btn" (click)="searchProducts()">
+            <i class="fas fa-search"></i> Tìm kiếm
+        </button>
     </div>
     <div class="row">
         <div class="col-lg-4 col-md-6 col-sm-12" *ngFor="let product of products">
@@ -33,16 +33,14 @@
                     <i class="fa-solid fa-star-half-alt"></i>
                 </div>
                 <div class="product-actions">
-                    <button class="btn btn-primary">Mua ngay</button>
+                    <button class="btn btn-primary" style="cursor: pointer;">Mua ngay</button>
                     <span class="space-x"></span>
-                    <button class="btn btn-secondary">Thêm vào giỏ</button>
+                    <button class="btn btn-secondary" style="cursor: pointer;" >Thêm vào giỏ</button>
                 </div>
             </div>
         </div>
     </div>
-
-</div>
-<div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center">
     <nav aria-label="Page navigation" style="cursor: pointer;">
         <ul class="pagination">
             <li class="page-item" *ngIf="currentPage > 1">
@@ -66,4 +64,5 @@
     </nav>
 </div>
 
-<!-- <app-footer></app-footer> -->
+</div>
+

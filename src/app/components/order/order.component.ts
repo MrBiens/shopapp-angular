@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup ,FormBuilder,Validator, Validators} from '@angular/forms';
+import { FormGroup ,FormBuilder, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import { OrderDTO } from 'src/app/dtos/order/order.dto';
 import { Environment } from 'src/app/enviroments/environment';
@@ -21,6 +21,9 @@ export class OrderComponent implements OnInit {
     product:Product ,
      quantity:number 
   }[] = [];
+
+  cartQuantity : number =1;
+
 
   couponCode : string = '';
 
@@ -108,6 +111,34 @@ export class OrderComponent implements OnInit {
     })
 
   }
+
+  increaseItemQuantity(productId: number): void {
+    this.cartService.addToCart(productId, 1);
+    alert('Tăng số lượng sản phẩm thành công');
+    this.ngOnInit();
+  }
+
+  decreaseItemQuantity(productId: number): void {
+    const cart = this.cartService.getCart();
+    const currentQuantity = cart.get(productId) || 0;
+    if (currentQuantity > 1) {
+      this.cartService.addToCart(productId, -1);
+      alert('Giảm số lượng sản phẩm thành công');
+    } else {
+      alert('Số lượng sản phẩm nhỏ hơn 1 thì sản phẩm sẽ bị xóa khỏi giỏ hàng');
+      this.cartService.removeCart(productId);
+    }
+    this.ngOnInit();
+  }
+  removeItem(productId: number): void {
+    const confirmDelete = window.confirm('Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng không?');
+    if (confirmDelete) {
+      this.cartService.removeCart(productId); // Xóa sản phẩm ra khỏi giỏ hàng
+      alert('Xóa sản phẩm khỏi giỏ hàng thành công');
+      this.ngOnInit(); // Load lại dữ liệu
+    }
+  }
+
 
 
   calculateTotal(): number { //for sum i range i -> n ; i++

@@ -1,0 +1,39 @@
+<div class="container p-4">
+  <h2 class="mb-4">Quản lý mã giảm giá</h2>
+  <div class="row mb-3">
+    <div class="col-md-8">
+      <button class="btn btn-success" [routerLink]="['/admin/coupons/create']">Thêm mã giảm giá mới</button>
+    </div>      
+  </div>
+  
+
+  <!-- Coupon List -->
+  <table class="table table-bordered">
+    <thead class="table-light">
+      <tr>
+        <th>Mã giảm giá</th>
+        <th>Số lượng</th>
+        <th>Giá giảm (%)</th>
+        <th>Ngày hết hạn</th>
+        <th>Ngày tạo</th>
+        <th>Hành động </th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let coupon of coupons">
+        <td>{{ coupon.couponId }}</td>
+        <td>{{ coupon.quantity }}</td>
+        <td>{{ coupon.salePrice }}</td>
+        <td>{{ coupon.expiredAt }}</td>
+        <td>{{ coupon.createAt | date: 'short' }}</td>
+         <td>
+          <div style="display: flex; gap: 10px;">
+            <button class="btn btn-primary">Update</button>
+            <button class="btn btn-danger" (click)="onDelete(coupon)">Delete</button>
+          </div>
+        </td> 
+      </tr>
+    </tbody>
+  </table>
+</div>
