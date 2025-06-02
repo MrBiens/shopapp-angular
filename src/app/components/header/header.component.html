@@ -31,8 +31,8 @@
                         <a class="nav-link text-white px-2" 
                         [ngClass]="{'active':activeNavItem===1}"
                         (click)="setActiveNavItem(1)"
-
-                        routerLink="/">Tin tức</a>
+                        [routerLink]="['/notification']">
+                        Tin tức</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white px-2"
@@ -64,7 +64,12 @@
                                     (click)="handleUserMenu(1)">
                                     Đơn mua
                                 </button>
-                                <button ngbDropdownItem (click)="handleUserMenu(2)">Đăng xuất</button>
+                                <button ngbDropdownItem 
+                                    *ngIf="userResponse.role_response.name != 'ADMIN'" 
+                                    (click)="handleUserMenu(2)">
+                                    Tin tức
+                                </button>
+                                <button ngbDropdownItem (click)="handleUserMenu(3)">Đăng xuất</button>
                             </div>
                         </div>
                     </li>

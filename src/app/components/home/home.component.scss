@@ -1,3 +1,4 @@
+/* ========== Layout chính ========== */
 .container {
     min-height: 100vh;
     max-width: 1200px;
@@ -13,18 +14,64 @@
     padding: 20px;
 }
 
-/* ==== Phần cải tiến Search Box ==== */
+/* ========== Banner Carousel ========== */
+.banner-carousel {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 30px 0;
+    overflow: hidden;
+}
+
+.banner-image {
+    width: 100%;
+    height: auto; /* giữ đúng tỷ lệ ảnh */
+    max-height: 400px; /* tùy chỉnh nếu cần giới hạn chiều cao */
+    object-fit: contain; /* đảm bảo hiển thị toàn bộ ảnh, không bị cắt */
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    font-size: 2rem;
+    padding: 8px 14px;
+    cursor: pointer;
+    z-index: 10;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.carousel-btn:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.prev-btn {
+    left: 20px;
+}
+
+.next-btn {
+    right: 20px;
+}
+
+/* ========== Search Box ========== */
 .search-box {
     display: flex;
-    flex-wrap: wrap; /* giúp responsive */
-    gap: 12px; /* khoảng cách đều */
+    flex-wrap: wrap;
+    gap: 12px;
     justify-content: center;
     margin: 20px 0;
 }
 
 .search-input,
 .product-category {
-    background-color: #FFF0F5; /* hồng pastel nhạt */
+    background-color: #FFF0F5;
     border: 1px solid #E0E0E0;
     color: #333333;
     padding: 10px 14px;
@@ -32,13 +79,13 @@
     font-size: 16px;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
     min-width: 250px;
-    flex-grow: 1; /* co giãn đều */
+    flex-grow: 1;
     max-width: 350px;
 }
 
 .search-input:focus,
 .product-category:focus {
-    border-color: #C2185B; /* hồng đậm khi focus */
+    border-color: #C2185B;
     box-shadow: 0 0 8px rgba(194, 24, 91, 0.4);
     outline: none;
 }
@@ -70,30 +117,32 @@
         flex-direction: column;
         align-items: stretch;
     }
+
     .search-input,
     .product-category,
     .search-btn {
         max-width: 100%;
         flex-grow: unset;
     }
+
+    .banner-carousel {
+        height: 200px;
+    }
 }
 
-/* ==== Các style chung còn giữ nguyên ==== */
-
+/* ========== Style chung ========== */
 .form-control {
     background-color: #FFF0F5;
     border: 1px solid #E0E0E0;
     color: #333333;
 }
 
-.form-control::placeholder,
-.form-control:-ms-input-placeholder,
-.form-control:-moz-placeholder,
-.form-control:-ms-input-placeholder {
+.form-control::placeholder {
     color: #999999;
     opacity: 1;
 }
 
+/* ========== Sản phẩm ========== */
 .product-item {
     cursor: pointer;
     background-color: #FFFFFF;
@@ -136,12 +185,12 @@
 }
 
 .product-price {
-    color: #C2185B; /* Hồng đậm nữ tính */
+    color: #C2185B;
     font-weight: bold;
 }
 
 .product-rating {
-    color: #FFD700; /* Vàng */
+    color: #FFD700;
     margin-top: 10px;
 }
 
@@ -153,4 +202,52 @@
 
 .space-x {
     margin: 0 5px;
+}
+.product-card-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.product-card {
+    width: 200px;
+    flex-shrink: 0;
+    margin: 0 10px;
+    background: white;
+    padding: 10px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.product-card-name {
+    margin-top: 8px;
+    font-weight: 600;
+    color: #333;
+    font-size: 14px;
+}
+
+.product-card-price {
+    margin-top: 4px;
+    color: #C2185B;
+    font-weight: bold;
+}
+
+.best-selling-carousel-wrapper {
+    position: relative;
+    overflow-x: auto;
+    display: flex;
+    align-items: center;
+}
+
+.best-selling-carousel {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
 }

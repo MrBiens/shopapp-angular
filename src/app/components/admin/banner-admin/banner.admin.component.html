@@ -1,0 +1,45 @@
+<div class="container p-4">
+  <h2 class="mb-4">Quản lý Banner</h2>
+
+  <div class="row mb-3">
+    <div class="col-md-8">
+      <button class="btn btn-success" [routerLink]="['/admin/banners/create']">Thêm banner mới</button>
+    </div>
+  </div>
+
+  <!-- Banner List -->
+  <table class="table table-bordered">
+    <thead class="table-light">
+      <tr>
+        <th>Mã Banner</th>
+        <th>Tiêu đề</th>
+        <th>Mô tả</th>
+        <th>Vị trí</th>
+        <th>Ảnh</th>
+        <th>Ngày bắt đầu</th>
+        <th>Ngày kết thúc</th>
+        <th>Hành động</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let banner of banners">
+        <td>{{ banner.id }}</td>
+        <td>{{ banner.title }}</td>
+        <td>{{ banner.description }}</td>
+        <td>{{ banner.position }}</td>
+        <td>
+          <img *ngIf="banner.imagePath"
+               [src]="banner.imagePath"
+               alt="Banner Image"
+               width="80" height="auto" />
+        </td>
+        <td>{{ banner.startDate | date: 'shortDate' }}</td>
+        <td>{{ banner.endDate | date: 'shortDate' }}</td>
+        <td>
+          <button class="btn btn-primary" [routerLink]="['/admin/banners/update', banner.id]">Sửa</button>
+          <button class="btn btn-danger" (click)="deleteBanner(banner.id)">Xóa</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

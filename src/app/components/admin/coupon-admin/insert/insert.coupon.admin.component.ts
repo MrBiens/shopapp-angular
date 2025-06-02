@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { min } from 'class-validator';
 import { CouponService } from 'src/app/services/coupon.service';
 
 @Component({
@@ -21,6 +22,7 @@ export class InsertCouponAdminComponent {
       couponId: ['', Validators.required],
       quantity: [0, [Validators.required, Validators.min(1)]],
       salePrice: [0, [Validators.required, Validators.min(0)]],
+      minimumOrderAmount: [0, [Validators.required, Validators.min(0)]],
       expiredAt: ['', Validators.required]
     });
   }
@@ -36,6 +38,7 @@ export class InsertCouponAdminComponent {
         this.couponCreated.emit(); // báo cho component cha reload
         this.couponForm.reset();
         this.loading = false;
+        alert('Tạo mã giảm giá thành công!');
       },
       error: err => {
         console.error(err);

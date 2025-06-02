@@ -1,0 +1,64 @@
+<p>search works!</p>
+<div class="container">
+
+<div class="search-box">
+        <input type="text" class="form-control search-input" placeholder="Tìm sản phẩm..." [(ngModel)]="keyword" />
+        
+        <select class="form-control product-category" [(ngModel)]="selectedCategoryId">
+            <option [value]="0">Danh mục sản phẩm</option>
+            <option *ngFor="let category of categories" [value]="category.id">
+            {{category.name}}
+            </option>
+        </select>
+        
+        <button class="btn btn-primary search-btn" (click)="searchProducts()">
+            <i class="fas fa-search"></i> Tìm kiếm
+        </button>
+    </div>
+    <div class="row">
+        <div class="col-lg-4 col-md-6 col-sm-12" *ngFor="let product of products">
+            <div class="product-item"  [routerLink]="['/productdetail', product.id]">
+                <img [src]="product.image" alt="Product Image" class="product-image">
+                <h3 class="product-name">{{product.name}}</h3>
+                <p class="product-description">{{product.description}}</p>
+                <p class="product-price">Gia: {{product.price}}</p>
+                <div class="product-rating">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star-half-alt"></i>
+                </div>
+                <div class="product-actions">
+                    <button class="btn btn-primary" style="cursor: pointer;">Mua ngay</button>
+                    <span class="space-x"></span>
+                    <button class="btn btn-secondary" style="cursor: pointer;" >Thêm vào giỏ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-center">
+        <nav aria-label="Page navigation" style="cursor: pointer;">
+            <ul class="pagination">
+                <li class="page-item" *ngIf="currentPage > 1">
+                    <button class="page-link" (click)="onPageChange(currentPage - 1)">Previous</button>
+                    </li>
+
+                    <ng-container *ngFor="let page of visiblePages">
+                    <li class="page-item" [ngClass]="{'active': page === currentPage }">
+                        <button class="page-link" (click)="onPageChange(page)">{{ page }}</button>
+                    </li>
+                    </ng-container>
+
+                    <li class="page-item" *ngIf="currentPage < totalPages">
+                    <button class="page-link" (click)="onPageChange(currentPage + 1)">Next</button>
+                    </li>
+
+                    <li class="page-item" *ngIf="currentPage < totalPages">
+                    <button class="page-link" (click)="onPageChange(totalPages)">Last</button>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>

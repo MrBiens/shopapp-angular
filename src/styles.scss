@@ -1,12 +1,20 @@
-/* You can add global styles to this file, and also import other style files */
-
-html, body { 
- height: 100%; 
-//   background-color: white; /* Màu nền toàn trang */
-
-
+html, body {
+  height: 100%;
+  margin: 0;
 }
-body { margin: 0; 
-    font-family: Roboto, "Helvetica Neue", sans-serif;
 
+body {
+  background-color: #FAF9F6;
+}
+
+/* app-root là flex container chính */
+app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Đẩy footer xuống đáy */
+app-footer {
+  margin-top: auto;
 }

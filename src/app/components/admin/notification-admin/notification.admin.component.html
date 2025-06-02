@@ -13,16 +13,22 @@
   <table class="table table-bordered">
     <thead class="table-light">
       <tr>
+        <th>Mã thông báo</th>
+        <th>Người nhận</th>
         <th>Ảnh</th>
         <th>Tiêu đề</th>
         <th>Kiểu thông báo</th>
         <th>Nội dung</th>
         <th>Ngày tạo</th>
         <th>Ngày sửa</th>
+        <th>Hành động</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let notify of notifications">
+        <td>{{ notify.id }}</td>
+        <td>{{ notify.recipientName ? notify.recipientName : 'Thông báo chung' }}</td>
+
         <td>
         <img *ngIf="notify.image" 
              [src]="notify.image" 
@@ -34,6 +40,10 @@
         <td>{{ notify.content }}</td>
         <td>{{ notify.createAt | date: 'short' }}</td>
         <td>{{ notify.updateAt | date: 'short' }}</td>
+        <td>
+          <button class="btn btn-primary" [routerLink]="['/admin/notifications/edit', notify.id]">Sửa</button>
+          <button class="btn btn-danger" >Xóa</button>
+        </td>
       </tr>
     </tbody>
   </table>

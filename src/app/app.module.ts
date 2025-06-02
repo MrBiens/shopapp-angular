@@ -11,7 +11,6 @@ import { RegisterComponent } from './components/register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 
-
 import{ 
   HTTP_INTERCEPTORS, 
   HttpClientModule,
@@ -32,7 +31,6 @@ import { UpdateCategoryAdminComponent } from './components/admin/category-admin/
 import { UpdateProductAdminComponent } from './components/admin/product-admin/update/update.product.admin.component';
 import { InsertProductAdminComponent } from './components/admin/product-admin/insert/insert.product.admin.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -49,6 +47,17 @@ import { UpdateNotificationAdminComponent } from './components/admin/notificatio
 import { InsertCouponAdminComponent } from './components/admin/coupon-admin/insert/insert.coupon.admin.component';
 import { InsertSupplierAdminComponent } from './components/admin/supplier-admin/insert/insert.supplier.admin.component';
 import { UpdateSupplierAdminComponent } from './components/admin/supplier-admin/update/update.supplier.admin.component';
+import { NotificationComponent } from './components/notification/notification.component';
+import { BannerAdminComponent } from './components/admin/banner-admin/banner.admin.component';
+import { InsertBannerAdminComponent } from './components/admin/banner-admin/insert/insert.banner.admin.component';
+import { UpdateBannerAdminComponent } from './components/admin/banner-admin/update/update.banner.admin.component';
+import { SearchComponent } from './components/search/search.component';
+import { UserAdminComponent } from './components/admin/user-admin/user.admin.component';
+import { UpdateUserAdminComponent } from './components/admin/user-admin/update/update.user.admin.component';
+import { InsertOrderAdminComponent } from './components/admin/order-admin/insert/insert.order.admin.component';
+import { UpdateOrderAdminComponent } from './components/admin/order-admin/update/update.order.admin.component';
+import { NgChartsModule } from 'ng2-charts';
+import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -58,13 +67,13 @@ import { UpdateSupplierAdminComponent } from './components/admin/supplier-admin/
     HeaderComponent,
     FooterComponent,
     OrderComponent, 
+    SearchComponent,
 
     DetailProductComponent, 
     OrderConfirmComponent, 
     LoginComponent, 
     RegisterComponent,
     SidebarComponent,
-    OrderAdminComponent,
 
     DetailOrderAdminComponent,
     InvoicePrintComponent,
@@ -92,7 +101,24 @@ import { UpdateSupplierAdminComponent } from './components/admin/supplier-admin/
 
     NotificationAdminComponent,
     InsertNotificationAdminComponent,
-    UpdateNotificationAdminComponent
+    UpdateNotificationAdminComponent,
+
+
+    NotificationComponent,
+
+    BannerAdminComponent,
+    InsertBannerAdminComponent,
+    UpdateBannerAdminComponent,
+
+    UserAdminComponent,
+    UpdateUserAdminComponent,
+
+    OrderAdminComponent,
+  
+    InsertOrderAdminComponent,
+    UpdateOrderAdminComponent,
+
+    DashboardComponent
 
     
   ],
@@ -110,6 +136,7 @@ import { UpdateSupplierAdminComponent } from './components/admin/supplier-admin/
     MatFormFieldModule,
     ReactiveFormsModule,
     MatButtonModule,
+    NgChartsModule
 
   ],
 

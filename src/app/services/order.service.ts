@@ -11,6 +11,7 @@ import { OrderResponse } from "../responses/order.response";
 
 export class OrderService{
     private apiOrderUrl : string = Environment.apiUrl+"/orders";
+    private apiOrderCreateByAdmin : string = this.apiOrderUrl+"/create-by-admin";
     private apiGetAllOrders :string = this.apiOrderUrl+"/get-orders-by-keyword";
 
 
@@ -24,6 +25,11 @@ export class OrderService{
     placeOrder(orderData: OrderDTO): Observable<any> {    
         // Gửi yêu cầu đặt hàng
         return this.http.post(this.apiOrderUrl, orderData);
+    }
+    
+    createOrderByAdmin(orderData: OrderDTO): Observable<any> {    
+        // Gửi yêu cầu đặt hàng
+        return this.http.post(this.apiOrderCreateByAdmin, orderData);
     }
 
     getOrderById(orderId: number): Observable<any> {
@@ -65,12 +71,14 @@ export class OrderService{
     getAllOrders(
     keyword: string,
     page: number,
-    limit: number
+    limit: number,
+    status? : string
     ): Observable<any> {
     const params = new HttpParams()
         .set('keyword', keyword)
         .set('page', page.toString())
-        .set('limit', limit.toString());
+        .set('limit', limit.toString())
+        .set('status', status || ''); // Thêm tham số status nếu có
 
     return this.http.get<any>(this.apiGetAllOrders, { params });
     }
@@ -78,6 +86,9 @@ export class OrderService{
     updateOrder(orderId: number, orderData: OrderDTO): Observable<Object> {
     const url = `apiOrderUrl/${orderId}`;
     return this.http.put(url, orderData);
+    }
+    updateStatus(orderId: number, status: string): Observable<void> {
+        return this.http.put<void>(`${this.apiOrderUrl}/${orderId}/status?status=${status}`, {});
     }
     
     deleteOrder(orderId: number): Observable<any> {

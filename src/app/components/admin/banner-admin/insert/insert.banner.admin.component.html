@@ -1,0 +1,68 @@
+<div class="banner-form-container">
+  <h2 class="form-title">🎯 Tạo Banner Mới</h2>
+
+  <form [formGroup]="bannerForm" (ngSubmit)="submitBanner()" enctype="multipart/form-data">
+    <div class="form-grid">
+      
+      <!-- Title -->
+      <div class="form-group full-width">
+        <label for="title">Tiêu đề *</label>
+        <input type="text" id="title" formControlName="title" />
+      </div>
+
+      <!-- Description -->
+      <div class="form-group full-width">
+        <label for="description">Mô tả</label>
+        <textarea id="description" formControlName="description" rows="3"></textarea>
+      </div>
+
+      <!-- Position -->
+      <div class="form-group">
+        <label for="position">Vị trí *</label>
+        <select id="position" formControlName="position">
+          <option value="">-- Chọn vị trí --</option>
+          <option value="TOP_LEFT">Top Left</option>
+          <option value="TOP_RIGHT">Top Right</option>
+          <option value="BOTTOM_LEFT">Bottom Left</option>
+          <option value="BOTTOM_RIGHT">Bottom Right</option>
+        </select>
+      </div>
+
+      <!-- isActive -->
+      <div class="form-group checkbox-group">
+        <input type="checkbox" id="isActive" formControlName="isActive" />
+        <label for="isActive">Hoạt động</label>
+      </div>
+
+      <!-- Start Date -->
+      <div class="form-group">
+        <label for="startDate">Ngày bắt đầu *</label>
+        <input type="date" id="startDate" formControlName="startDate" />
+      </div>
+
+      <!-- End Date -->
+      <div class="form-group">
+        <label for="endDate">Ngày kết thúc *</label>
+        <input type="date" id="endDate" formControlName="endDate" />
+      </div>
+
+      <!-- Image Upload -->
+      <div class="form-group full-width">
+        <label for="imageUpload">Ảnh banner</label>
+        <input type="file" id="imageUpload" (change)="onFileSelected($event)" accept="image/*" />
+        <div *ngIf="imagePreview" class="image-preview">
+          <img [src]="imagePreview" alt="Preview" />
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Submit Button -->
+    <div class="form-actions">
+      <button type="submit" [disabled]="bannerForm.invalid">➕ Tạo Banner</button>
+    </div>
+
+    <!-- Error message -->
+    <div class="error-message" *ngIf="message">{{ message }}</div>
+  </form>
+</div>

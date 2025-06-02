@@ -1,4 +1,13 @@
   <h2 class="mb-4">Quản lý đơn hàng</h2>
+  <div class="mb-3">
+    <button [routerLink]="['/admin/orders/create']" class="btn btn-success mb-3">Tạo đơn hàng mới</button>
+
+    <label for="statusFilter" class="form-label">Lọc theo trạng thái:</label>
+    <select id="statusFilter" [(ngModel)]="selectedStatus" (change)="getAllOrders(keyword, currentPage, itemsPerPage)">
+        <option value="">Tất cả</option>
+        <option *ngFor="let status of orderStatuses" [value]="status">{{ status }}</option>
+    </select>
+    </div>
 
 <table class="table">
         <thead>
@@ -35,7 +44,14 @@
                 <td>{{ order.address }}</td>
                 <td>{{ order.note }}</td>
                 <td>{{ order.order_date | date: 'short' }}</td>
-                <td>{{ order.status }}</td>
+                <td>
+                <select [(ngModel)]="order.status" (change)="onStatusChange(order)">
+                    <option [value]="0">{{ order.status }}</option>
+                    <option *ngFor="let status of orderStatuses" [ngValue]="status">
+                    {{ status }}
+                    </option>
+                </select>
+                </td>
                 <td>{{ order.total_money | number:'1.0-0' }}</td>
                 <td>
                 <div style="display: flex; gap: 10px;">

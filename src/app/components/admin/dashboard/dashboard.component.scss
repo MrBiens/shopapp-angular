@@ -1,0 +1,25 @@
+.card {
+  background-color: #ffe6f0 !important;
+  border-radius: 1rem;
+  box-shadow: 0 0 15px rgba(255, 64, 129, 0.2);
+}
+
+h5 {
+  color: #d81b60;
+}
+
+.form-select {
+  border-color: #ff4081;
+  color: #ff4081;
+  border-radius: 0.75rem;
+  transition: all 0.3s ease;
+
+  &:focus {
+    border-color: #ff80ab;
+    box-shadow: 0 0 0 0.25rem rgba(255, 64, 129, 0.25);
+  }
+}
+
+.spinner-border.pink-spinner {
+  color: #ff4081;
+}

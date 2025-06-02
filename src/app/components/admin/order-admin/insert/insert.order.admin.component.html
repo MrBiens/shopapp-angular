@@ -1,0 +1,164 @@
+<form [formGroup]="orderForm" (ngSubmit)="submit()">
+  <!-- Input tìm kiếm khách hàng -->
+  <div class="mb-3 position-relative">
+    <label for="userSearch" class="form-label">Khách hàng</label>
+    <input
+      id="userSearch"
+      type="text"
+      class="form-control"
+      [value]="selectedUserInput"
+      (input)="onUserInput($any($event.target).value)"
+      placeholder="Nhập tên hoặc số điện thoại khách hàng"
+      autocomplete="off"
+    />
+    <ul
+      *ngIf="users.length > 0"
+      class="list-group position-absolute z-3 w-100 mt-1 shadow-sm"
+      style="max-height: 200px; overflow-y: auto;"
+    >
+      <li
+        *ngFor="let user of users"
+        class="list-group-item list-group-item-action"
+        (click)="onUserSelect(user)"
+        style="cursor: pointer;"
+      >
+        {{ user.full_name }} - {{ user.phone_number }}
+      </li>
+    </ul>
+  </div>
+
+  <!-- Thông tin khách hàng -->
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <label>Họ tên</label>
+      <input formControlName="full_name" class="form-control" />
+    </div>
+    <div class="col-md-6 mb-3">
+      <label>Số điện thoại</label>
+      <input formControlName="phone_number" class="form-control" />
+    </div>
+    <div class="col-md-6 mb-3">
+      <label>Email</label>
+      <input formControlName="email" type="email" class="form-control" />
+    </div>
+    <div class="col-md-6 mb-3">
+      <label>Địa chỉ</label>
+      <input formControlName="address" class="form-control" />
+    </div>
+  </div>
+
+  <!-- Sản phẩm -->
+  <h5>Sản phẩm</h5>
+  <div formArrayName="cart_items">
+    <div
+      *ngFor="let detail of cartItems.controls; let i = index"
+      [formGroupName]="i"
+      class="border p-3 mb-3 rounded bg-light position-relative"
+    >
+      <div class="form-row row">
+        <div class="form-group col-md-5 position-relative">
+          <label>Sản phẩm {{i + 1}}:</label>
+          <input
+            #productInput
+            type="text"
+            class="form-control"
+            formControlName="product_name"
+            (input)="searchProduct(i, productInput.value)"
+            placeholder="Tìm sản phẩm..."
+            autocomplete="off"
+          />
+          <ul *ngIf="productOptions[i] && productOptions[i].length > 0" class="list-group position-absolute z-3 w-100 mt-1 shadow-sm" style="max-height: 200px; overflow-y: auto;">
+            <li
+              *ngFor="let product of productOptions[i]"
+              class="list-group-item list-group-item-action"
+              (click)="selectProduct(i, product)"
+              style="cursor: pointer;"
+            >
+              {{ product.name }} - {{ product.price | currency:'VND':'symbol' }}
+            </li>
+          </ul>
+        </div>
+
+        <div class="form-group col-md-3">
+          <label>Giá nhập (VND):</label>
+          <input
+            type="number"
+            class="form-control"
+            formControlName="price"
+            min="0"
+          />
+        </div>
+
+        <div class="form-group col-md-3">
+          <label>Số lượng:</label>
+          <input
+            type="number"
+            class="form-control"
+            formControlName="quantity"
+            min="1"
+          />
+        </div>
+
+        <div class="form-group col-md-1 d-flex align-items-end">
+          <button type="button" class="btn btn-danger btn-sm" (click)="removeCartItem(i)">Xóa</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button type="button" class="btn btn-primary mb-3" (click)="addCartItem()">Thêm sản phẩm</button>
+
+  <!-- Các thông tin khác -->
+  <div class="mb-3">
+    <label>Phí vận chuyển (VND):</label>
+    <input
+      type="number"
+      class="form-control"
+      formControlName="shipping_fee"
+      min="0"
+      (input)="calculateTotalMoney()"
+    />
+  </div>
+
+  <div class="mb-3">
+    <label>Phương thức vận chuyển:</label>
+    <select formControlName="shipping_method" class="form-control">
+      <option value="">Chọn phương thức</option>
+      <option value="standard">Vận chuyển thường</option>
+      <option value="express">Vận chuyển nhanh</option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label>Phương thức thanh toán:</label>
+    <select formControlName="payment_method" class="form-control">
+      <option value="">Chọn phương thức</option>
+      <option value="cash">Tiền mặt</option>
+      <option value="bank_transfer">Chuyển khoản</option>
+      <option value="card">Thẻ tín dụng</option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label>Ghi chú:</label>
+    <textarea formControlName="note" class="form-control" rows="3"></textarea>
+  </div>
+
+  <div class="mb-3">
+    <label>Tổng tiền (VND):</label>
+    <input
+      type="number"
+      class="form-control"
+      formControlName="total_money"
+      readonly
+    />
+  </div>
+
+  <button
+    type="submit"
+    class="btn btn-success"
+    [disabled]="orderForm.invalid || isSubmitting"
+  >
+    Tạo đơn hàng
+  </button>
+</form>

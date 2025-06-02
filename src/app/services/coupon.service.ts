@@ -29,6 +29,21 @@ export class CouponService {
             map(response => response.result as CouponResponse)
         );
     }
+
+    getCouponById(couponId: string): Observable<CouponResponse> {
+        return this.http.get<any>(`${this.apiCoupons}/get-by-id/${couponId}`).pipe(
+            map(response => response.result as CouponResponse)
+        );
+    }
+
+    decreaseQuantity(couponCode: string): Observable<string> {
+    return this.http.put<any>(`${this.apiCoupons}/${couponCode}/decrease-quantity`, {}).pipe(
+      map(response => {
+        // Nếu backend trả về thông báo thành công dạng string
+        return response.message as string;
+      })
+    );
+  }
     
     
     

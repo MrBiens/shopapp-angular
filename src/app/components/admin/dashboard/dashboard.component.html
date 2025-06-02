@@ -1,0 +1,28 @@
+<div class="card shadow-sm p-4 rounded-4 bg-white">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h5 class="mb-0">Thống kê doanh thu</h5>
+    <select (change)="loadRevenueChart($any($event.target).value)" class="form-select w-auto">
+      <option value="week">Theo tuần</option>
+      <option value="month">Theo tháng</option>
+      <option value="year">Theo năm</option>
+    </select>
+  </div>
+
+  <!-- Hiển thị spinner khi đang tải -->
+  <div *ngIf="isLoading" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-2">Đang tải dữ liệu...</p>
+  </div>
+
+  <!-- Biểu đồ -->
+  <div *ngIf="!isLoading">
+    <canvas baseChart
+      [data]="barChartData"
+      [options]="barChartOptions"
+      [type]="barChartType"
+      class="chart-canvas">
+    </canvas>
+  </div>
+</div>

@@ -11,6 +11,10 @@ import { OrderService } from 'src/app/services/order.service';
 })
 export class OrderAdminComponent implements OnInit{
   orders: Order[] = [];
+  orderStatuses: string[] = ['PENDING', 'CONFIRMED', 'SHIPPING', 'DELIVERED', 'CANCELLED'];
+  selectedStatus: string = ''; // '' nghĩa là không lọc theo trạng thái
+
+
   currentPage:number =1;
   itemsPerPage: number = 12; // Number of items to display per page
   pages: number = 0; // Total number of pages
@@ -33,7 +37,7 @@ export class OrderAdminComponent implements OnInit{
   }
 
   getAllOrders(keyword: string, page: number, limit: number) {
-  this.orderService.getAllOrders(keyword, page, limit).subscribe({
+  this.orderService.getAllOrders(keyword, page, limit,this.selectedStatus).subscribe({
     next: (response: any) => {
       const result = response.result;
 
@@ -108,6 +112,15 @@ export class OrderAdminComponent implements OnInit{
     debugger
     this.router.navigate(['/admin/orders', order]);
   }
+  onStatusChange(order: Order) {
+  this.orderService.updateStatus(order.order_id, order.status!).subscribe({
+    next: () => alert('Cập nhật trạng thái thành công'),
+    error: err => {
+      alert('Cập nhật thất bại');
+      console.error(err);
+    }
+  });
+}
 
 
 

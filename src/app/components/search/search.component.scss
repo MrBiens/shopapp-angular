@@ -1,0 +1,156 @@
+.container {
+    min-height: 100vh;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #FAF9F6;
+}
+
+.intro-section {
+    text-align: center;
+    color: #333333;
+    padding: 20px;
+}
+
+/* ==== Phần cải tiến Search Box ==== */
+.search-box {
+    display: flex;
+    flex-wrap: wrap; /* giúp responsive */
+    gap: 12px; /* khoảng cách đều */
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.search-input,
+.product-category {
+    background-color: #FFF0F5; /* hồng pastel nhạt */
+    border: 1px solid #E0E0E0;
+    color: #333333;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    min-width: 250px;
+    flex-grow: 1; /* co giãn đều */
+    max-width: 350px;
+}
+
+.search-input:focus,
+.product-category:focus {
+    border-color: #C2185B; /* hồng đậm khi focus */
+    box-shadow: 0 0 8px rgba(194, 24, 91, 0.4);
+    outline: none;
+}
+
+.search-btn {
+    background-color: #C2185B;
+    border-color: #C2185B;
+    color: white;
+    padding: 10px 22px;
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s ease;
+    flex-shrink: 0;
+}
+
+.search-btn:hover {
+    background-color: #9a1551;
+    border-color: #9a1551;
+}
+
+@media (max-width: 576px) {
+    .search-box {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .search-input,
+    .product-category,
+    .search-btn {
+        max-width: 100%;
+        flex-grow: unset;
+    }
+}
+
+/* ==== Các style chung còn giữ nguyên ==== */
+
+.form-control {
+    background-color: #FFF0F5;
+    border: 1px solid #E0E0E0;
+    color: #333333;
+}
+
+.form-control::placeholder,
+.form-control:-ms-input-placeholder,
+.form-control:-moz-placeholder,
+.form-control:-ms-input-placeholder {
+    color: #999999;
+    opacity: 1;
+}
+
+.product-item {
+    cursor: pointer;
+    background-color: #FFFFFF;
+    border: 1px solid #EDEDED;
+    border-radius: 20px;
+    padding: 20px;
+    color: #333333;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s;
+}
+
+.product-item:hover {
+    transform: translateY(-5px);
+}
+
+.product-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.product-name {
+    color: #333333;
+    font-weight: bold;
+}
+
+.product-description {
+    color: #666666;
+    min-height: 60px;
+    overflow: hidden;
+}
+
+.product-warranty {
+    color: #666666;
+}
+
+.product-price {
+    color: #C2185B; /* Hồng đậm nữ tính */
+    font-weight: bold;
+}
+
+.product-rating {
+    color: #FFD700; /* Vàng */
+    margin-top: 10px;
+}
+
+.product-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.space-x {
+    margin: 0 5px;
+}

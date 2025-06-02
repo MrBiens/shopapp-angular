@@ -36,7 +36,9 @@ export class NotificationAdminComponent implements OnInit {
     },
     error: err => console.error(err)
   });
+  
 }
+
 
 
 

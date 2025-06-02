@@ -5,6 +5,7 @@ import { OrderDTO } from 'src/app/dtos/order/order.dto';
 import { Environment } from 'src/app/enviroments/environment';
 import { Product } from 'src/app/models/product';
 import { CartService } from 'src/app/services/cart.service';
+import { CouponService } from 'src/app/services/coupon.service';
 import { OrderService } from 'src/app/services/order.service';
 import { ProductService } from 'src/app/services/product.service';
 import { TokenService } from 'src/app/services/token.service';
@@ -19,13 +20,12 @@ export class OrderComponent implements OnInit {
 
   cartItems: { //gia tri gan luc khoi tao
     product:Product ,
-     quantity:number 
+    quantity:number 
   }[] = [];
 
   cartQuantity : number =1;
 
 
-  couponCode : string = '';
 
   totalAmount: number = 0;
 
@@ -42,12 +42,17 @@ export class OrderComponent implements OnInit {
       payment_method: 'cod',
       cart_items: []
   }
+  couponCode : string = '';
+
+  couponMessage: string = '';
+  discountedTotal: number = 0;
 
 
   constructor(
     private cartService:CartService,
     private productService:ProductService,
     private orderService:OrderService,
+    private couponService:CouponService,
     private fb:FormBuilder,
     private tokenService:TokenService,
     private router:Router
@@ -99,6 +104,8 @@ export class OrderComponent implements OnInit {
         } );
         console.log('Success');
         this.calculateTotal(); // gan bang totalAmout
+        this.updateDiscountedTotal(); // cap nhat tong tien da giam gia neu co ma giam gia
+        
 
       },
       complete:() => {
@@ -116,6 +123,7 @@ export class OrderComponent implements OnInit {
     this.cartService.addToCart(productId, 1);
     alert('Tăng số lượng sản phẩm thành công');
     this.ngOnInit();
+    this.updateDiscountedTotal();
   }
 
   decreaseItemQuantity(productId: number): void {
@@ -129,6 +137,7 @@ export class OrderComponent implements OnInit {
       this.cartService.removeCart(productId);
     }
     this.ngOnInit();
+    this.updateDiscountedTotal();
   }
   removeItem(productId: number): void {
     const confirmDelete = window.confirm('Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng không?');
@@ -136,6 +145,7 @@ export class OrderComponent implements OnInit {
       this.cartService.removeCart(productId); // Xóa sản phẩm ra khỏi giỏ hàng
       alert('Xóa sản phẩm khỏi giỏ hàng thành công');
       this.ngOnInit(); // Load lại dữ liệu
+      this.updateDiscountedTotal();
     }
   }
 
@@ -146,6 +156,81 @@ export class OrderComponent implements OnInit {
       return total + (item.product.price * item.quantity);
     }, 0);
   }
+  applyCoupon(): void {
+
+    if (!this.couponCode) {
+      this.couponMessage = 'Vui lòng nhập mã giảm giá.';
+      return;
+    }
+
+    this.couponService.getCouponById(this.couponCode).subscribe({
+      next: (coupon) => {
+        const now = new Date();
+        const expired = new Date(coupon.expiredAt);
+
+        if (coupon.quantity > 0 && expired >= now) {
+          this.couponMessage = `Áp dụng mã thành công: giảm ${coupon.salePrice.toLocaleString()}đ`;
+          this.discountedTotal = this.totalAmount - coupon.salePrice;
+          if (this.discountedTotal < 0) this.discountedTotal = 0;
+
+          // Gọi API giảm số lượng mã giảm giá
+        } else if (coupon.quantity <= 0) {
+          this.couponMessage = 'Mã giảm giá đã hết lượt sử dụng.';
+          this.discountedTotal = 0;
+        } else {
+          this.couponMessage = 'Mã giảm giá đã hết hạn.';
+          this.discountedTotal = 0;
+        }
+      },
+      error: () => {
+        this.couponMessage = 'Mã giảm giá không hợp lệ.';
+        this.discountedTotal = 0;
+      }
+    });
+  }
+  updateDiscountedTotal() {
+    if (this.couponCode) {
+      this.couponService.getCouponById(this.couponCode).subscribe({
+        next: (coupon) => {
+          const now = new Date();
+          const expired = new Date(coupon.expiredAt);
+
+          if (coupon.quantity > 0 && expired >= now) {
+            this.discountedTotal = this.calculateTotal() - coupon.salePrice;
+            if (this.discountedTotal < 0) this.discountedTotal = 0;
+          } else {
+            this.discountedTotal = 0;
+            this.couponMessage = 'Mã giảm giá không còn hiệu lực. Vui lòng kiểm tra lại.';
+          }
+        },
+        error: () => {
+          this.discountedTotal = 0;
+          this.couponMessage = 'Không thể kiểm tra mã giảm giá.';
+        }
+      });
+    } else {
+      this.discountedTotal = 0;
+    }
+  }
+
+
+  decreaseCouponQuantity(couponCode: string): void {
+    this.couponService.decreaseQuantity(couponCode).subscribe({
+      next: (message) => {
+        console.log('API giảm số lượng mã giảm giá:', message);
+        // Có thể cập nhật message hiển thị cho user, hoặc để trong console cũng được
+        // Ví dụ:
+        // this.couponMessage += ` (${message})`;
+      },
+      error: (error) => {
+        console.error('Lỗi khi giảm số lượng mã giảm giá:', error);
+        // Có thể báo lỗi cho user nếu muốn
+        // alert('Lỗi khi cập nhật số lượng mã giảm giá.');
+      }
+    });
+  }
+
+
 
   placeOrder(){
     debugger;
@@ -157,7 +242,7 @@ export class OrderComponent implements OnInit {
       this.orderData={
         ...this.orderData,       // sao chép tất cả thuộc tính hiện có trong orderData
         ...this.orderForm.value, // ghi đè hoặc thêm mới các thuộc tính từ form
-        total_money:this.calculateTotal()
+        total_money: this.discountedTotal > 0 ? this.discountedTotal : this.calculateTotal(), // tính tổng tiền, ưu tiên giá đã giảm
       };
 
       this.orderData.cart_items= this.cartItems.map( cartItem => ({
@@ -168,7 +253,10 @@ export class OrderComponent implements OnInit {
       this.orderService.placeOrder(this.orderData).subscribe({
         next:(response:any) => {
             debugger;
-            alert('Dat hang thanh cong')
+            alert('Đặt hàng thành công.')
+            if (this.couponCode) {
+              this.decreaseCouponQuantity(this.couponCode);
+            }
             this.cartService.clearCart();
             this.router.navigate(['/']);
         },
@@ -180,11 +268,6 @@ export class OrderComponent implements OnInit {
             alert(`Loi khi dat hang: ${error}`);
         },
       })
-
-
-      
-
-
     }
   }
 

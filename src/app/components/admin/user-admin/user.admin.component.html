@@ -1,0 +1,76 @@
+<div class="container mt-4">
+  <h2>Quản lý người dùng</h2>
+
+  <!-- Tìm kiếm -->
+  <div class="row mb-3">
+    <div class="col-md-4">
+      <input [(ngModel)]="keyword" class="form-control" placeholder="Tìm theo tên, số điện thoại..." />
+    </div>
+    <div class="col-md-2">
+      <button class="btn btn-primary" (click)="searchUsers()">Tìm kiếm</button>
+    </div>
+  </div>
+
+  <!-- Bảng danh sách -->
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Họ tên</th>
+        <th>SĐT</th>
+        <th>Ngày sinh</th>
+        <th>Địa chỉ</th>
+        <th>Quyền</th>
+        <th>Trạng thái</th>
+        <th>Hành động</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.id }}</td>
+        <td>{{ user.full_name }}</td>
+        <td>{{ user.phone_number }}</td>
+        <td>{{ user.date_of_birth | date:'dd/MM/yyyy' }}</td>
+        <td>{{ user.address }}</td>
+        <td>{{ user.role_response?.name }}</td>
+        <td>
+          <span [ngClass]="{'text-success': user.is_active, 'text-danger': !user.is_active}">
+            {{ user.is_active ? 'Hoạt động' : 'Khóa' }}
+          </span>
+        </td>
+        <td>
+          <button class="btn btn-sm btn-warning me-1" (click)="goToEditUser(user.id)">Sửa</button>
+          <button class="btn btn-sm btn-danger" >Xóa</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Phân trang -->
+  <div class="d-flex justify-content-center">
+    <nav aria-label="Page navigation">
+      <ul class="pagination">
+        <li class="page-item" *ngIf="page > 1">
+          <a class="page-link" (click)="changePage(1)">First</a>
+        </li>
+        <li class="page-item" *ngIf="page > 1">
+          <a class="page-link" (click)="changePage(page - 1)">Previous</a>
+        </li>
+
+        <ng-container *ngFor="let p of visiblePages">
+          <li class="page-item" [ngClass]="{'active': p === page}">
+            <a class="page-link" (click)="changePage(p)">{{ p }}</a>
+          </li>
+        </ng-container>
+
+        <li class="page-item" *ngIf="page < totalPages">
+          <a class="page-link" (click)="changePage(page + 1)">Next</a>
+        </li>
+        <li class="page-item" *ngIf="page < totalPages">
+          <a class="page-link" (click)="changePage(totalPages)">Last</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+</div>

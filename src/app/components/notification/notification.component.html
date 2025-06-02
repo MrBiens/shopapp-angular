@@ -1,1 +1,24 @@
-<p>notification works!</p>
+<div class="notification-list">
+  <h2>Thông báo hệ thống</h2>
+
+  <div *ngIf="notifications.length === 0" class="no-notifications">
+    Hiện không có thông báo nào.
+  </div>
+
+  <div *ngFor="let notification of notifications" class="notification-item">
+    <img
+      *ngIf="notification.image"
+      [src]="notification.image"
+      alt="Ảnh thông báo"
+      class="notification-image"
+    />
+    <div class="notification-content">
+      <h3>{{ notification.title }}</h3>
+      <p>{{ notification.content }}</p>
+      <div class="meta-info">
+        <span>Người gửi: {{ notification.authorName }}</span> |
+        <span>{{ notification.createAt | date: 'short' }}</span>
+      </div>
+    </div>
+  </div>
+</div>

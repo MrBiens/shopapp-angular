@@ -31,6 +31,15 @@ import { InsertCouponAdminComponent } from './components/admin/coupon-admin/inse
 import { UpdateCouponAdminComponent } from './components/admin/coupon-admin/update/update.coupon.admin.component';
 import { InsertSupplierAdminComponent } from './components/admin/supplier-admin/insert/insert.supplier.admin.component';
 import { UpdateSupplierAdminComponent } from './components/admin/supplier-admin/update/update.supplier.admin.component';
+import { NotificationComponent } from './components/notification/notification.component';
+import { BannerAdminComponent } from './components/admin/banner-admin/banner.admin.component';
+import { InsertBannerAdminComponent } from './components/admin/banner-admin/insert/insert.banner.admin.component';
+import { UpdateBannerAdminComponent } from './components/admin/banner-admin/update/update.banner.admin.component';
+import { SearchComponent } from './components/search/search.component';
+import { UserAdminComponent } from './components/admin/user-admin/user.admin.component';
+import { UpdateUserAdminComponent } from './components/admin/user-admin/update/update.user.admin.component';
+import { InsertOrderAdminComponent } from './components/admin/order-admin/insert/insert.order.admin.component';
+import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'productdetail/:id', component: DetailProductComponent },
@@ -39,12 +48,19 @@ const routes: Routes = [
   { path: 'order-confirm', component: OrderConfirmComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'notification', component: NotificationComponent },
+  { path: 'search', component: SearchComponent },
+
+  
   {
   path: 'admin',
   component: AdminComponent,
   canActivate: [AdminGuard],
   children: [
+    { path: '', redirectTo: 'dashboard', pathMatch: 'full' }, 
+    { path: 'dashboard', component: DashboardComponent },
     { path: 'orders', component: OrderAdminComponent },
+    { path: 'orders/create', component: InsertOrderAdminComponent },
     { path: 'orders/:id', component: DetailOrderAdminComponent }, 
     { path: 'orders/:id/invoice', component: InvoicePrintComponent },
 
@@ -71,7 +87,18 @@ const routes: Routes = [
 
     { path: 'notifications', component: NotificationAdminComponent},
     { path: 'notifications/create', component: InsertNotificationAdminComponent},
-    { path: 'notifications/update/:id', component: UpdateNotificationAdminComponent}
+    { path: 'notifications/update/:id', component: UpdateNotificationAdminComponent},
+
+    { path: 'banners', component: BannerAdminComponent},
+    { path: 'banners/create', component: InsertBannerAdminComponent},
+    { path: 'banners/update/:id', component: UpdateBannerAdminComponent},
+
+    { path: 'users', component: UserAdminComponent},
+    { path: 'users/update/:id', component: UpdateUserAdminComponent},
+
+
+
+
 
 
 

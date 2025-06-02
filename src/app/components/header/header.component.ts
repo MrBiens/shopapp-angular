@@ -35,6 +35,10 @@ export class HeaderComponent implements OnInit{
   goToLogin(): void {
     this.router.navigate(['login']); // Điều hướng đến trang chi tiết sản phẩm
   }
+  goToNotification(): void {
+    this.router.navigate(['/notification']);
+  }
+
   
   handleUserMenu(option: number): void {
   switch (option) {
@@ -45,6 +49,9 @@ export class HeaderComponent implements OnInit{
       this.router.navigate(['/order']);
       break;
     case 2:
+      this.router.navigate(['/notification']);
+      break;
+    case 3:
       this.userService.logout();
       this.tokenService.removeAccessToken();
       this.userResponse = null; // Đặt lại userResponse thành null

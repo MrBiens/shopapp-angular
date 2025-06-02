@@ -3,6 +3,7 @@ import { Environment } from "../enviroments/environment";
 import { HttpClient } from "@angular/common/http";
 import { map, Observable } from "rxjs";
 import { NotificationResponse } from "../dtos/notification/notification.response";
+import { NotificationAllResponse } from "../dtos/notification/notification.common";
 
 @Injectable({
 providedIn:'root'  
@@ -20,8 +21,19 @@ export class NotificationService {
             page: page.toString(),
             pageSize: pageSize.toString()
         };
-        return this.http.get<any>(`${this.apiNotifications}`, { params }).pipe(
+        return this.http.get<any>(`${this.apiNotifications}/admin`, { params }).pipe(
             map(response => response.result as NotificationResponse[])
+        );
+    }
+    createNotification(formData: FormData): Observable<NotificationResponse> {
+        return this.http.post<any>(`${this.apiNotifications}`, formData).pipe(
+            map(response => response.result as NotificationResponse)
+        );
+    }
+
+    getNotificationsCommon(): Observable<any> {
+        return this.http.get<any>(`${this.apiNotifications}/common`).pipe(
+            map(response => response.result as NotificationAllResponse[])
         );
     }
     
@@ -30,11 +42,7 @@ export class NotificationService {
     }
 
     
-    createNotification(formData: FormData): Observable<NotificationResponse> {
-        return this.http.post<any>(`${this.apiNotifications}`, formData).pipe(
-            map(response => response.result as NotificationResponse)
-        );
-    }
+  
 
     
     

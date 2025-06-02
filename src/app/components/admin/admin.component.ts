@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ChartData, ChartOptions, ChartType } from 'chart.js';
 
 @Component({
   selector: 'app-admin',
