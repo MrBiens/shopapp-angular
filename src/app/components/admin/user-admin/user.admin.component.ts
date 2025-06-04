@@ -27,14 +27,14 @@ export class UserAdminComponent implements OnInit {
   }
 
   searchUsers(): void {
-    this.userService.getUsers(this.keyword, this.page, this.limit).subscribe({
-      next: (response) => {
-        console.log('Full response:', response);
-        this.users = response.result.userResponseList;
-        this.totalPages = response.result.totalPages;
+    this.userService.searchUsers(this.keyword, this.page, this.limit).subscribe({
+      next: (data) => {
+        this.users = data;
+        this.totalPages = Math.ceil(data.length / this.limit);
+        this.visiblePages = this.generateVisiblePageArray(this.page, this.totalPages);
       },
       error: (err) => {
-        console.error('Lỗi lấy danh sách người dùng', err);
+        console.error('Error fetching users:', err);
       }
     });
   }

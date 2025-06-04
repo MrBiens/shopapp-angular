@@ -8,7 +8,7 @@ export interface UserResponse{
     date_of_birth:Date;
     address:string;
     role_id:number;
-    is_active:boolean;
+    is_active?:boolean;
     facebook_account_id:string;
     google_account_id:string;
     role_response:Role;

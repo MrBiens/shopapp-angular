@@ -44,12 +44,14 @@ export class UserService {
     return headers;
   }
 
-  getUsers(keyword:string,page:number, limit:number):Observable<any>{
+  searchUsers(keyword:string,page:number, limit:number):Observable<any>{
         const params =  new HttpParams()
         .set('keyword', keyword)
         .set('page', page)
         .set('limit', limit);
-        return this.http.get<any>(this.apiSearchUsers, { params: params });
+        return this.http.get<any>(this.apiSearchUsers, { params: params }).pipe(
+          map(response => response.result.userResponseList as UserResponse[] )
+        );
   };
 
   register(registerDTO: RegisterDTO): Observable<any> {

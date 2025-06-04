@@ -24,7 +24,7 @@ export class DashboardComponent implements OnInit {
   constructor(private statisticsService: StatisticService) {}
 
   ngOnInit(): void {
-    this.loadRevenueChart('week'); // mặc định theo tháng
+    this.loadRevenueChart('week'); // mặc định theo tuan 
   }
 
   loadRevenueChart(type: 'week' | 'month' | 'year'): void {
@@ -40,7 +40,7 @@ export class DashboardComponent implements OnInit {
               data: data.map(item => item.totalRevenue),
               label: 'Doanh thu',
               backgroundColor: '#ff4081',
-              hoverBackgroundColor: '#ff80ab' // màu hồng nhạt khi hover
+              hoverBackgroundColor: '#ff80ab'
 
             }
           ]
@@ -50,7 +50,7 @@ export class DashboardComponent implements OnInit {
         console.error('Lỗi khi lấy dữ liệu thống kê', err);
       },
       complete: () => {
-        this.isLoading = false; // Kết thúc loading
+        this.isLoading = false; 
       }
     });
     

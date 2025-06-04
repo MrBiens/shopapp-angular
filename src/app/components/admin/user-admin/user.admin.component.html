@@ -18,6 +18,7 @@
         <th>ID</th>
         <th>Họ tên</th>
         <th>SĐT</th>
+        <th>Email</th>
         <th>Ngày sinh</th>
         <th>Địa chỉ</th>
         <th>Quyền</th>
@@ -30,9 +31,10 @@
         <td>{{ user.id }}</td>
         <td>{{ user.full_name }}</td>
         <td>{{ user.phone_number }}</td>
+        <td>{{ user.email }}</td>
         <td>{{ user.date_of_birth | date:'dd/MM/yyyy' }}</td>
         <td>{{ user.address }}</td>
-        <td>{{ user.role_response?.name }}</td>
+        <td>{{ user.role_response.name}}</td>
         <td>
           <span [ngClass]="{'text-success': user.is_active, 'text-danger': !user.is_active}">
             {{ user.is_active ? 'Hoạt động' : 'Khóa' }}

@@ -1,164 +1,137 @@
-<form [formGroup]="orderForm" (ngSubmit)="submit()">
-  <!-- Input tìm kiếm khách hàng -->
-  <div class="mb-3 position-relative">
-    <label for="userSearch" class="form-label">Khách hàng</label>
-    <input
-      id="userSearch"
-      type="text"
-      class="form-control"
-      [value]="selectedUserInput"
-      (input)="onUserInput($any($event.target).value)"
-      placeholder="Nhập tên hoặc số điện thoại khách hàng"
-      autocomplete="off"
-    />
-    <ul
-      *ngIf="users.length > 0"
-      class="list-group position-absolute z-3 w-100 mt-1 shadow-sm"
-      style="max-height: 200px; overflow-y: auto;"
-    >
-      <li
-        *ngFor="let user of users"
-        class="list-group-item list-group-item-action"
-        (click)="onUserSelect(user)"
-        style="cursor: pointer;"
-      >
-        {{ user.full_name }} - {{ user.phone_number }}
-      </li>
-    </ul>
-  </div>
+<div class="insert-order-container">
+  <h2>Thêm đơn hàng mới</h2>
 
-  <!-- Thông tin khách hàng -->
-  <div class="row">
-    <div class="col-md-6 mb-3">
-      <label>Họ tên</label>
-      <input formControlName="full_name" class="form-control" />
+  <form [formGroup]="orderForm" (ngSubmit)="submit()">
+    <!-- Tìm và chọn khách hàng -->
+    <div class="form-group">
+      <label>Tìm khách hàng</label>
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="selectedUserInput"
+        [ngModelOptions]="{ standalone: true }"
+        (ngModelChange)="searchUsers($event)"
+        placeholder="Nhập tên hoặc số điện thoại"
+        name="userSearch"
+        autocomplete="off"
+      />
+      <ul class="autocomplete-list" *ngIf="users.length">
+        <li *ngFor="let user of users" (click)="selectUser(user)">
+          {{ user.full_name }} - {{ user.phone_number }}
+        </li>
+      </ul>
     </div>
-    <div class="col-md-6 mb-3">
+
+    <!-- Thông tin khách hàng -->
+    <div class="form-group">
+      <label>Họ và tên</label>
+      <input type="text" class="form-control" formControlName="full_name" />
+    </div>
+
+    <div class="form-group">
       <label>Số điện thoại</label>
-      <input formControlName="phone_number" class="form-control" />
+      <input type="text" class="form-control" formControlName="phone_number" />
     </div>
-    <div class="col-md-6 mb-3">
+
+    <div class="form-group">
       <label>Email</label>
-      <input formControlName="email" type="email" class="form-control" />
+      <input type="email" class="form-control" formControlName="email" />
     </div>
-    <div class="col-md-6 mb-3">
+
+    <div class="form-group">
       <label>Địa chỉ</label>
-      <input formControlName="address" class="form-control" />
+      <input type="text" class="form-control" formControlName="address" />
     </div>
-  </div>
 
-  <!-- Sản phẩm -->
-  <h5>Sản phẩm</h5>
-  <div formArrayName="cart_items">
-    <div
-      *ngFor="let detail of cartItems.controls; let i = index"
-      [formGroupName]="i"
-      class="border p-3 mb-3 rounded bg-light position-relative"
-    >
-      <div class="form-row row">
-        <div class="form-group col-md-5 position-relative">
-          <label>Sản phẩm {{i + 1}}:</label>
-          <input
-            #productInput
-            type="text"
-            class="form-control"
-            formControlName="product_name"
-            (input)="searchProduct(i, productInput.value)"
-            placeholder="Tìm sản phẩm..."
-            autocomplete="off"
-          />
-          <ul *ngIf="productOptions[i] && productOptions[i].length > 0" class="list-group position-absolute z-3 w-100 mt-1 shadow-sm" style="max-height: 200px; overflow-y: auto;">
-            <li
-              *ngFor="let product of productOptions[i]"
-              class="list-group-item list-group-item-action"
-              (click)="selectProduct(i, product)"
-              style="cursor: pointer;"
-            >
-              {{ product.name }} - {{ product.price | currency:'VND':'symbol' }}
-            </li>
-          </ul>
-        </div>
+    <!-- Danh sách sản phẩm -->
+    <div formArrayName="cart_items">
+      <h4>Sản phẩm</h4>
+      <div
+        class="cart-item"
+        *ngFor="let item of cartItems.controls; let i = index"
+        [formGroupName]="i"
+      >
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Tìm sản phẩm"
+          [(ngModel)]="keyProducts[i]"
+          [ngModelOptions]="{standalone: true}"
 
-        <div class="form-group col-md-3">
-          <label>Giá nhập (VND):</label>
-          <input
-            type="number"
-            class="form-control"
-            formControlName="price"
-            min="0"
-          />
-        </div>
+          (ngModelChange)="searchProduct(i, keyProducts[i])"
+        />
+        <ul class="autocomplete-list" *ngIf="productOptions[i]?.length">
+          <li
+            *ngFor="let product of productOptions[i]"
+            (click)="selectProduct(i, product)"
+          >
+            {{ product.name }} - {{ product.price | number }}đ
+          </li>
+        </ul>
 
-        <div class="form-group col-md-3">
-          <label>Số lượng:</label>
-          <input
-            type="number"
-            class="form-control"
-            formControlName="quantity"
-            min="1"
-          />
-        </div>
-
-        <div class="form-group col-md-1 d-flex align-items-end">
-          <button type="button" class="btn btn-danger btn-sm" (click)="removeCartItem(i)">Xóa</button>
-        </div>
+        <input
+          type="number"
+          class="form-control"
+          placeholder="Số lượng"
+          formControlName="quantity"
+        />
+        <input
+          type="number"
+          class="form-control"
+          placeholder="Giá"
+          formControlName="price"
+          readonly
+        />
+        <button type="button" class="btn btn-danger" (click)="removeCartItem(i)">
+          Xóa
+        </button>
       </div>
+      <button type="button" class="btn btn-primary mt-2" (click)="addCartItem()">
+        + Thêm sản phẩm
+      </button>
     </div>
-  </div>
 
-  <button type="button" class="btn btn-primary mb-3" (click)="addCartItem()">Thêm sản phẩm</button>
+    <!-- Thông tin giao hàng -->
+    <div class="form-group">
+      <label>Phí vận chuyển</label>
+      <input
+        type="number"
+        class="form-control"
+        formControlName="shipping_fee"
+      />
+    </div>
 
-  <!-- Các thông tin khác -->
-  <div class="mb-3">
-    <label>Phí vận chuyển (VND):</label>
-    <input
-      type="number"
-      class="form-control"
-      formControlName="shipping_fee"
-      min="0"
-      (input)="calculateTotalMoney()"
-    />
-  </div>
+    <div class="form-group">
+      <label>Phương thức giao hàng</label>
+      <select class="form-control" formControlName="shipping_method">
+        <option value="">-- Chọn phương thức giao hàng --</option>
+        <option value="express">Giao hàng nhanh</option>
+        <option value="pickup">Nhận tại cửa hàng</option>
+      </select>
+    </div>
 
-  <div class="mb-3">
-    <label>Phương thức vận chuyển:</label>
-    <select formControlName="shipping_method" class="form-control">
-      <option value="">Chọn phương thức</option>
-      <option value="standard">Vận chuyển thường</option>
-      <option value="express">Vận chuyển nhanh</option>
-    </select>
-  </div>
+    <div class="form-group">
+      <label>Phương thức thanh toán</label>
+      <select class="form-control" formControlName="payment_method">
+        <option value="">-- Chọn phương thức thanh toán --</option>
+        <option value="cod">Thanh toán khi nhận hàng (COD)</option>
+        <option value="bank_transfer">Chuyển khoản ngân hàng</option>
+      </select>
+    </div>
 
-  <div class="mb-3">
-    <label>Phương thức thanh toán:</label>
-    <select formControlName="payment_method" class="form-control">
-      <option value="">Chọn phương thức</option>
-      <option value="cash">Tiền mặt</option>
-      <option value="bank_transfer">Chuyển khoản</option>
-      <option value="card">Thẻ tín dụng</option>
-    </select>
-  </div>
+    <div class="form-group">
+      <label>Ghi chú</label>
+      <textarea class="form-control" formControlName="note"></textarea>
+    </div>
 
-  <div class="mb-3">
-    <label>Ghi chú:</label>
-    <textarea formControlName="note" class="form-control" rows="3"></textarea>
-  </div>
+    <!-- Tổng tiền -->
+    <div class="total-amount">
+      <strong>Tổng tiền sản phẩm:</strong>
+      {{ orderForm.get('total_money')?.value | number }}đ
+    </div>
 
-  <div class="mb-3">
-    <label>Tổng tiền (VND):</label>
-    <input
-      type="number"
-      class="form-control"
-      formControlName="total_money"
-      readonly
-    />
-  </div>
-
-  <button
-    type="submit"
-    class="btn btn-success"
-    [disabled]="orderForm.invalid || isSubmitting"
-  >
-    Tạo đơn hàng
-  </button>
-</form>
+    <button type="submit" class="btn btn-success" [disabled]="isSubmitting">
+      {{ isSubmitting ? 'Đang tạo đơn hàng...' : 'Tạo đơn hàng' }}
+    </button>
+  </form>
+</div>
