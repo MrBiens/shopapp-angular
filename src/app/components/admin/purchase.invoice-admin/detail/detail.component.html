@@ -1,0 +1,28 @@
+<div class="container mt-4">
+  <h2>Chi tiết hóa đơn #{{ invoiceId }}</h2>
+
+  <table class="table table-bordered table-striped" *ngIf="details.length > 0">
+    <thead>
+      <tr>
+        <th>Mã sản phẩm</th>
+        <th>Tên sản phẩm</th>
+        <th>Đơn giá</th>
+        <th>Số lượng</th>
+        <th>Thành tiền</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let detail of details">
+        <td>{{ detail.product_id }}</td>
+        <td>{{ detail.product_name }}</td>
+        <td>{{ detail.price | number:'1.0-0' }} đ</td>
+        <td>{{ detail.quantity }}</td>
+        <td>{{ detail.total_price | number:'1.0-0' }} đ</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="details.length === 0">
+    <p>Không có chi tiết hóa đơn để hiển thị.</p>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<div class="order-history-container">
+  <h2>Lịch Sử Đơn Hàng</h2>
+  
+  <div *ngIf="orders.length > 0; else noOrders">
+    <div *ngFor="let order of orders" class="order-card">
+      <div class="order-header">
+        <h3>Mã đơn hàng: #{{ order.orderId }}</h3>
+        <span class="status-label" [ngClass]="order.status">{{ order.status }}</span>
+      </div>
+      <div class="order-info">
+        <p><strong>Ngày đặt hàng:</strong> {{ order.orderDate }}</p>
+        <p><strong>Phương thức thanh toán:</strong> {{ order.paymentMethod }}</p>
+        <p><strong>Tổng tiền:</strong> <span class="total-amount">{{ order.totalAmount | currency }}</span></p>
+        <p><strong>Địa chỉ giao hàng:</strong> {{ order.address }}</p>
+      </div>
+
+      <div class="order-details">
+        <h4>Chi tiết sản phẩm</h4>
+        <ul class="product-list">
+          <li *ngFor="let detail of order.orderDetails" class="product-item">
+            <img [src]="detail.product.image" alt="{{ detail.product.name }}" class="product-image">
+            <div class="product-info">
+              <p class="product-name">{{ detail.product.name }}</p>
+              <p>Giá: <span class="product-price">{{ detail.price | currency }}</span></p>
+              <p>Số lượng: {{ detail.quantity }}</p>
+              <p>Tổng tiền: <span class="product-total">{{ detail.totalMoney | currency }}</span></p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noOrders>
+    <p class="no-orders">Không có đơn hàng nào.</p>
+  </ng-template>
+</div>

@@ -1,33 +1,71 @@
 import { Injectable } from "@angular/core";
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
-import { Observable } from "rxjs";
+import {
+  HttpEvent,
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest,
+  HttpErrorResponse
+} from "@angular/common/http";
+import { Observable, throwError } from "rxjs";
+import { catchError, switchMap } from "rxjs/operators";
 
+import { UserService } from "../services/user.service";
 import { TokenService } from "../services/token.service";
+
 @Injectable()
-
 export class TokenInterceptor implements HttpInterceptor {
-    constructor(private tokenService: TokenService) { 
+  constructor(
+    private userService: UserService,
+    private tokenService: TokenService
+  ) {}
 
-    }
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const accessToken = this.tokenService.getAccessToken();
 
-    // dang ky interceptor trong module
-    //nhiệm vụ chèn access token 
-    // vào mọi HTTP request gửi từ frontend đến backend, nếu token có tồn tại.
-    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const accessToken = this.tokenService.getAccessToken();
-        if (accessToken) {
-            // add token to request header
-            req = req.clone({ // duppli request va sua doi
-                setHeaders: {
-                    //authorization được cấu hình ở frontend và lấy ra tại http request 
-                    Authorization: `Bearer ${accessToken}`
-                }
-            });
+    let authReq = req;
+    if (accessToken) {
+      authReq = req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${accessToken}`
         }
-        return next.handle(req);
+      });
     }
 
+    return next.handle(authReq).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 401 && !req.url.includes("refresh-token")) {
+          const refreshToken = this.tokenService.getRefreshToken();
 
-    
+          if (!refreshToken) {
+            this.userService.logout();
+            this.tokenService.removeAccessToken();
+            return throwError(() => error);
+          }
 
+          return this.userService.refreshToken({ refreshToken }).pipe(
+            switchMap((res) => {
+              // Lưu lại token mới
+              this.tokenService.setAccessToken(res.token);
+              this.tokenService.setRefreshToken(res.refreshToken);
+
+              const updatedReq = req.clone({
+                setHeaders: {
+                  Authorization: `Bearer ${res.token}`
+                }
+              });
+
+              return next.handle(updatedReq);
+            }),
+            catchError((err) => {
+              this.userService.logout();
+              this.tokenService.removeAccessToken();
+              return throwError(() => err);
+            })
+          );
+        }
+
+        return throwError(() => error);
+      })
+    );
+  }
 }

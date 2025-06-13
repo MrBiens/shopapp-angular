@@ -51,7 +51,7 @@
                             {{ this.userResponse.full_name }}
                             </a>
                             <div ngbDropdownMenu>
-                                <button ngbDropdownItem (click)="handleUserMenu(0)">Tài khoản của tôi</button>
+                                <button ngbDropdownItem (click)="handleUserMenu(0)" >Tài khoản của tôi</button>
                                 <button ngbDropdownItem 
                                     *ngIf="userResponse.role_response.name == 'ADMIN'" 
                                     routerLink="/admin">
@@ -62,12 +62,12 @@
                                 <button ngbDropdownItem 
                                     *ngIf="userResponse.role_response.name != 'ADMIN'" 
                                     (click)="handleUserMenu(1)">
-                                    Đơn mua
+                                    Lịch sử mua hàng
                                 </button>
                                 <button ngbDropdownItem 
                                     *ngIf="userResponse.role_response.name != 'ADMIN'" 
                                     (click)="handleUserMenu(2)">
-                                    Tin tức
+                                    Thông báo
                                 </button>
                                 <button ngbDropdownItem (click)="handleUserMenu(3)">Đăng xuất</button>
                             </div>

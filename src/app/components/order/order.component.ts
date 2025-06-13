@@ -7,6 +7,7 @@ import { Product } from 'src/app/models/product';
 import { CartService } from 'src/app/services/cart.service';
 import { CouponService } from 'src/app/services/coupon.service';
 import { OrderService } from 'src/app/services/order.service';
+import { PaymentService } from 'src/app/services/payment.service';
 import { ProductService } from 'src/app/services/product.service';
 import { TokenService } from 'src/app/services/token.service';
 
@@ -24,7 +25,15 @@ export class OrderComponent implements OnInit {
   }[] = [];
 
   cartQuantity : number =1;
-
+  shippingMethods = [
+    { label: 'Giao hàng nhanh express', value: 'express' },
+    { label: 'Giao hàng tiêu chuẩn', value: 'standard' },
+    { label: 'Nhận tại cửa hàng', value: 'store_pickup' }
+  ];
+  paymentMethods=  [
+    { label: 'Thanh toán khi nhận hàng (COD)', value: 'cod' },
+    { label: 'Thanh toán qua VNPay', value: 'vnpay' }
+  ];
 
 
   totalAmount: number = 0;
@@ -40,6 +49,7 @@ export class OrderComponent implements OnInit {
       shipping_method: 'Giao hàng nhanh express',
       shipping_fee: 0,
       payment_method: 'cod',
+      vnp_txn_ref: '',
       cart_items: []
   }
   couponCode : string = '';
@@ -52,6 +62,7 @@ export class OrderComponent implements OnInit {
     private cartService:CartService,
     private productService:ProductService,
     private orderService:OrderService,
+    private paymentService:PaymentService,
     private couponService:CouponService,
     private fb:FormBuilder,
     private tokenService:TokenService,
@@ -229,47 +240,81 @@ export class OrderComponent implements OnInit {
       }
     });
   }
+  placeOrder() {
+    const cart = this.cartService.getCart();
+    if (cart === null || cart.size === 0) {
+      alert('Giỏ hàng của bạn đang trống. Vui lòng thêm sản phẩm vào giỏ hàng trước khi đặt hàng.');
+      this.router.navigate(['/']);
+      return;
+    }
 
+    if (this.orderForm.valid) {
+      const totalMoney = this.discountedTotal > 0 ? this.discountedTotal : this.calculateTotal();
 
-
-  placeOrder(){
-    debugger;
-    if(this.orderForm.valid){
-      // Cach1: gan gia tri tu form vao doi tuong orderData
-      // this.orderData.full_name=this.orderForm.get('fullname')!.value; // ! neu chac chan khong null, vi ban dau chua khoi tao value nen se loi
-
-      //cach 2:su dung toan tu spread(...) de sao chep gia tri tu form vao orderData
-      this.orderData={
-        ...this.orderData,       // sao chép tất cả thuộc tính hiện có trong orderData
-        ...this.orderForm.value, // ghi đè hoặc thêm mới các thuộc tính từ form
-        total_money: this.discountedTotal > 0 ? this.discountedTotal : this.calculateTotal(), // tính tổng tiền, ưu tiên giá đã giảm
+      this.orderData = {
+        ...this.orderData,
+        ...this.orderForm.value,
+        total_money: totalMoney,
+        
       };
 
-      this.orderData.cart_items= this.cartItems.map( cartItem => ({
-        product_id:cartItem.product.id,
-        quantity:cartItem.quantity
+      this.orderData.cart_items = this.cartItems.map(cartItem => ({
+        product_id: cartItem.product.id,
+        quantity: cartItem.quantity
       }));
 
-      this.orderService.placeOrder(this.orderData).subscribe({
-        next:(response:any) => {
-            debugger;
-            alert('Đặt hàng thành công.')
-            if (this.couponCode) {
-              this.decreaseCouponQuantity(this.couponCode);
-            }
-            this.cartService.clearCart();
-            this.router.navigate(['/']);
-        },
-        complete() {
-            debugger;
+      if (this.orderData.payment_method === 'vnpay') {
+        this.paymentService.createPayment(totalMoney).subscribe({
+          next: (response: any) => {
+            const paymentUrl = response.paymentUrl;
+            const vnp_TnxRef=new URL(paymentUrl).searchParams.get('vnp_TxnRef');
+            this.orderData.vnp_txn_ref = vnp_TnxRef || ''; 
+            this.orderService.placeOrder(this.orderData).subscribe({
+              next: (orderResponse: any) => {
+                alert('Đặt hàng thành công. Bạn sẽ được chuyển đến trang thanh toán VNPay.');
+                if (this.couponCode) {
+                  this.decreaseCouponQuantity(this.couponCode);
+                }
+                this.cartService.clearCart();
+                // Chuyển hướng đến trang thanh toán VNPay
+                window.location.href = paymentUrl;
+              },
+              error: (error: any) => {
+                alert(`Lỗi khi thanh toán bằng VNPAY.Bạn cần liên hệ với người bán để thanh toán ${error.message}`);
+              }
+            });
+           
 
+          },
+          error: (error) => {
+            alert('Lỗi khi tạo thanh toán VNPay: ' + error.message);
+          }
+        });
+        return;
+      }
+
+      // Nếu không phải VNPAY thì tiến hành đặt hàng luôn
+      this.orderService.placeOrder(this.orderData).subscribe({
+        next: (response: any) => {
+          alert('Đặt hàng thành công.');
+          if (this.couponCode) {
+            this.decreaseCouponQuantity(this.couponCode);
+          }
+          this.cartService.clearCart();
+          this.router.navigate(['/']);
         },
-        error(error:any) {
-            alert(`Loi khi dat hang: ${error}`);
-        },
-      })
+        error: (error: any) => {
+          alert(`Lỗi khi đặt hàng: ${error.message}`);
+        }
+      });
     }
   }
+
+
+
+
+  
+      
 
   
   

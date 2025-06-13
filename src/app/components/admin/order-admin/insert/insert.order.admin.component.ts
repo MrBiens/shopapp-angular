@@ -50,7 +50,7 @@ export class InsertOrderAdminComponent implements OnInit {
 
   searchUsers(keyword: string) {
     this.userService.searchUsers(keyword, this.page, this.size).subscribe(users => {
-      this.users = users;
+      this.users = users.users;
     });
   }
   selectUser(user: UserResponse) {

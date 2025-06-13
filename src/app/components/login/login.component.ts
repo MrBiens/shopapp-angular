@@ -14,9 +14,9 @@ import { Role } from 'src/app/models/role';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit{
-    @ViewChild('loginForm') loginForm!: NgForm;
+   @ViewChild('loginForm') loginForm!: NgForm;
   
-  phoneNumber: string = '';
+  userName: string = '';
   password: string = '';
 
   rememberMe:boolean=true;
@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit{
     private router:Router,
     private userService: UserService,
     private tokenService: TokenService,
-    private roleService:RoleService
+
   ) {
 
   }
@@ -49,16 +49,25 @@ export class LoginComponent implements OnInit{
   createAccount(){
     this.router.navigate(['/register']);
   }
-
-
-  onPhoneNumberChange(){
-    console.log("Phone changed: ", this.phoneNumber);
+  loginWithGoogle() {
+    this.userService.getGoogleLoginUrl().subscribe({
+      next: (url: string) => {
+        window.location.href = url; // Redirect tới Google login page
+      },
+      error: (err) => {
+        console.error('Error getting Google login URL', err);
+        alert('Lỗi khi kết nối với Google!');
+      }
+    });
   }
+
+
+
 
   login(){
     // gọi api đăng ký
     const loginDTO:LoginDTO  = {
-        "phone_number": this.phoneNumber,
+        "user_name": this.userName,
         "password": this.password,
 
     };
@@ -68,27 +77,14 @@ export class LoginComponent implements OnInit{
         
 
         debugger      
-        const token = response;
+        const { token, refreshToken, } = response;
         if(this.rememberMe){
           this.tokenService.setAccessToken(token);
-           this.userService.getUserDetail(token).subscribe({
+          this.tokenService.setRefreshToken(refreshToken);
+          this.userService.getUserDetail(token).subscribe({
           next:(response :any ) => {
               let userResponseSever = response.result;
               debugger;
-
-
-              // this.userResponse = {
-              //   id:userResponseSever.id,
-              //   full_name:userResponseSever.full_name,
-              //   address:userResponseSever.address,
-              //   phone_number:userResponseSever.phone_number,
-              //   date_of_birth:new Date(userResponseSever.date_of_birth),
-              //   role_id:userResponseSever.role_id,
-              //   gooogle_account_id:userResponseSever.gooogle_account_id,
-              //   facebook_account_id:userResponseSever.facebook_account_id,
-              //   is_active:userResponseSever.is_active,
-              //   role:userResponseSever.role_response
-              // };
 
               const userResponse ={
                 ...userResponseSever,

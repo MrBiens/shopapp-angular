@@ -9,6 +9,8 @@ import { BannerService } from 'src/app/services/banner.service';
 import { BannerResponse } from 'src/app/dtos/banner/banner.response';
 import { HomeService } from 'src/app/services/home.service';
 import { ProductBestSales } from 'src/app/dtos/product/product.best.sales';
+import { NotificationService } from 'src/app/services/notification.service';
+import { NotificationResponse } from 'src/app/dtos/notification/notification.response';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -24,6 +26,8 @@ export class HomeComponent implements OnInit {
 
   products : Product[] = [];
   categories: Category[] = []; // Array to hold categories
+  hotNews: NotificationResponse[] = [];
+
   keyword: string = '';
   selectedCategoryId: number = 1; // ID of the selected category
 
@@ -33,6 +37,7 @@ export class HomeComponent implements OnInit {
     private bannerService:BannerService,
     private productService:ProductService,
     private categoryService:CategoryService,
+    private notificationService: NotificationService,
     private homeService: HomeService,
     private router: Router,
   ) {
@@ -45,6 +50,7 @@ export class HomeComponent implements OnInit {
     this.getBanners(); // Gọi phương thức lấy banner
     this.getCategories();
     this.getBestSellingProducts(); // Lấy sản phẩm bán chạy
+    // this.getHotNews(); // Lấy tin tức hot
   }
    getBestSellingProducts() {
     this.homeService.getBestSellingProducts().subscribe({
@@ -129,6 +135,19 @@ export class HomeComponent implements OnInit {
   goToProductDetail(productId: number): void {
     this.router.navigate([`/productdetail/${productId}`]); // Điều hướng đến trang chi tiết sản phẩm
   }
+  // getHotNews() {
+  //   this.notificationService.getNotifications(1,5).subscribe({
+  //       next: (news) => {
+  //           this.hotNews = news;
+  //       },
+  //       error: (err) => {
+  //           console.error('Lỗi khi lấy tin tức hot:', err);
+  //       }
+  //   });
+  // } 
+
+  
+
 
  
 

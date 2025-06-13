@@ -1,0 +1,93 @@
+/* Màu nền tổng thể */
+body {
+  background-color: #FAF9F6;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Container chính */
+.order-history-container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* Card hiển thị từng đơn hàng */
+.order-card {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+/* Header đơn hàng */
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Trạng thái đơn hàng */
+.status-label {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* Màu sắc theo trạng thái */
+.pending { background: #FAD02E; color: #000; }
+.confirmed { background: #2ECC71; color: #fff; }
+.shipped { background: #3498DB; color: #fff; }
+.delivered { background: #27AE60; color: #fff; }
+.cancelled { background: #E74C3C; color: #fff; }
+
+/* Tổng tiền */
+.total-amount {
+  font-weight: bold;
+  color: #E67E22;
+}
+
+/* Danh sách sản phẩm */
+.product-list {
+  list-style: none;
+  padding: 0;
+}
+
+.product-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+/* Ảnh sản phẩm */
+.product-image {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+/* Thông tin sản phẩm */
+.product-name {
+  font-weight: bold;
+}
+
+.product-price {
+  color: #E67E22;
+}
+
+.product-total {
+  font-weight: bold;
+  color: #2ECC71;
+}
+
+/* Khi không có đơn hàng */
+.no-orders {
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #777;
+}

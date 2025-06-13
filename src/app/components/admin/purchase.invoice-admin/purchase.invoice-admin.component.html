@@ -25,7 +25,11 @@
     </thead>
     <tbody>
       <tr *ngFor="let invoice of invoices">
-        <td>{{ invoice.invoice_id }}</td>
+        <td>
+          <a [routerLink]="['/admin/purchase_invoice', invoice.invoice_id, 'detail']">
+            {{ invoice.invoice_id }}
+          </a>
+       </td>
         <td>{{ invoice.supplier_id }}</td>
         <td>{{ invoice.supplier_name }}</td>
         <td>{{ invoice.employee_id }}</td>

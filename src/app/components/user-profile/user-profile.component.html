@@ -1,1 +1,66 @@
-<p>user-profile works!</p>
+<div class="profile-container" *ngIf="userResponse; else loading">
+  <h2>Thông tin cá nhân</h2>
+
+  
+
+  <!-- Chế độ XEM -->
+  <div class="profile-card" *ngIf="!isEditMode">
+    <div class="profile-row"><strong>Họ và tên:</strong> {{ userResponse.full_name }}</div>
+    <div class="profile-row"><strong>Số điện thoại:</strong> {{ userResponse.phone_number }}</div>
+    <div class="profile-row"><strong>Email:</strong> {{ userResponse.email }}</div>
+    <div class="profile-row"><strong>Ngày sinh:</strong> {{ userResponse.date_of_birth | date:'dd/MM/yyyy' }}</div>
+    <div class="profile-row"><strong>Địa chỉ:</strong> {{ userResponse.address }}</div>
+    <div class="profile-row"><strong>Vai trò:</strong> {{ userResponse.role_response.name }}</div>
+    <div class="profile-row" *ngIf="userResponse?.facebook_account_id?.trim()">
+      <strong>Tài khoản Facebook:</strong> {{ userResponse.facebook_account_id }}
+    </div>
+    <div class="profile-row" *ngIf="userResponse?.google_account_id?.trim()">
+      <strong>Tài khoản Google:</strong> {{ userResponse.google_account_id }}
+    </div>
+    <div class="profile-row"><strong>Trạng thái:</strong> 
+      <span [ngClass]="userResponse.is_active ? 'active' : 'inactive'">
+        {{ userResponse.is_active ? 'Đang hoạt động' : 'Bị vô hiệu hóa' }}
+      </span>
+    </div>
+    
+  </div>
+
+  <!-- Chế độ CHỈNH SỬA -->
+  <form class="profile-card" *ngIf="isEditMode" (ngSubmit)="updateUserProfile()" #form="ngForm">
+    <div class="profile-row">
+      <label>Họ và tên:</label>
+      <input type="text" [(ngModel)]="userResponse.full_name" name="full_name" required />
+    </div>
+    <div class="profile-row">
+      <label>Số điện thoại:</label>
+      <input type="text" [(ngModel)]="userResponse.phone_number" name="phone_number" required />
+    </div>
+    <div class="profile-row">
+      <label>Email:</label>
+      <input type="email" [(ngModel)]="userResponse.email" name="email" required />
+    </div>
+    <div class="profile-row">
+      <label>Ngày sinh:</label>
+      <input type="date" [(ngModel)]="userResponse.date_of_birth" name="date_of_birth" required />
+    </div>
+    <div class="profile-row">
+      <label>Địa chỉ:</label>
+      <input type="text" [(ngModel)]="userResponse.address" name="address" />
+    </div>
+    <button type="submit" [disabled]="form.invalid">Lưu</button>
+  </form>
+  <!-- Nút chuyển chế độ -->
+   <div class="button-container">
+    <button (click)="isEditMode = !isEditMode">
+      {{ isEditMode ? 'Hủy' : 'Chỉnh sửa thông tin' }}
+    </button>
+    <button [routerLink]="['/user', userResponse.id, 'change-password']">Đổi mật khẩu</button>
+  </div>
+
+</div>
+
+
+
+<ng-template #loading>
+  <p>Đang tải thông tin người dùng...</p>
+</ng-template>

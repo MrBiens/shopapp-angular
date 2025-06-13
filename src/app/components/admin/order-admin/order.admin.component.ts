@@ -16,7 +16,7 @@ export class OrderAdminComponent implements OnInit{
 
 
   currentPage:number =1;
-  itemsPerPage: number = 12; // Number of items to display per page
+  itemsPerPage: number = 10; // Number of items to display per page
   pages: number = 0; // Total number of pages
   totalPages: number = 0; // Total number of pages
   visiblePages: number[] = []; // Array to hold the visible page numbers

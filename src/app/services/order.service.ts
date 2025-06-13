@@ -4,6 +4,7 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { OrderDTO } from "../dtos/order/order.dto";
 import { OrderResponse } from "../responses/order.response";
+import { OrderHistoryDTO } from "../dtos/order/order-history/order.history.dto";
 
 @Injectable({
     providedIn:'root'
@@ -13,6 +14,8 @@ export class OrderService{
     private apiOrderUrl : string = Environment.apiUrl+"/orders";
     private apiOrderCreateByAdmin : string = this.apiOrderUrl+"/create-by-admin";
     private apiGetAllOrders :string = this.apiOrderUrl+"/get-orders-by-keyword";
+
+    private apiShowImgage : string = Environment.apiUrl+"/products/images";
 
 
     constructor(
@@ -36,37 +39,48 @@ export class OrderService{
         const url = `${this.apiOrderUrl}/${orderId}`;
         return this.http.get(url);
     }
+    getOrderByUserId(userId: number): Observable<OrderHistoryDTO[]> {
+        const url = `${this.apiOrderUrl}/user/${userId}`;
+        return this.http.get<any>(url).pipe(
+            map(response => {
+                // response.result là mảng OrderHistoryDTO theo server
+                return (response.result as any[]).map
+                (order => ({
+                    orderId:order.order_id,
+                    fullName: order.full_name,
+                    phoneNumber: order.phone_number,
+                    email: order.email,
+                    address: order.address,
+                    totalAmount: order.total_money,
+                    shippingMethod: order.shipping_method,
+                    status: order.status,
+                    shippingDate: order.shipping_date,
+                    paymentMethod: order.payment_method,
+                    note: order.note,
+                    orderDate: order.order_date,
+                    orderDetails:order.order_details.map(
+                        (detail :any) => ({
+                            orderDetailId: detail.order_detail_id,
+                            orderId: detail.order_id,
+                            product:{
+                                id: detail.product_response.id,
+                                name: detail.product_response.name,
+                                image: this.getImageProduct(detail.product_response.image),
+                            },
+                            price: detail.price,
+                            quantity: detail.quantity,
+                            totalMoney: detail.total_money,
 
-//    getAllOrders(
-//     keyword: string,
-//     page: number,
-//     limit: number
-//     ): Observable<OrderResponse[]> { //luồng dữ liệu bất đồng bộ chứa mảng các OrderResponse
-//     const params = new HttpParams()
-//         .set('keyword', keyword)
-//         .set('page', page.toString())
-//         .set('limit', limit.toString());
-//     return this.http.get<any>(this.apiGetAllOrders, { params }).pipe(
-//         map(response => {
-//             // response.result là mảng OrderResponse theo server
-//             return (response.result.orderResponses as any[]).map(order => ({
-//                 ...order,
-//                 order_details: order.order_details.map(
-//                     (od: any) => ({
-//                     order_detail_id: od.order_detail_id,
-//                     order_id: od.order_id,
-//                     product: od.product_response,  // map product_response thành product (vi khac ten tu sever response)
-//                     price: od.price,
-//                     quantity: od.quantity,
-//                     total_money: od.total_money,
-//                     color: od.color ?? undefined
-//                     })
-//                 )
-//             }
-//         )) as OrderResponse[];
-//         }),
-//     );
-//     }
+                        })
+                    )
+                })) as OrderHistoryDTO[];
+            }),
+        );  
+    }
+    getImageProduct(imageName: string): string {
+        return `${this.apiShowImgage}/${imageName}`;
+    }
+
 
     getAllOrders(
     keyword: string,

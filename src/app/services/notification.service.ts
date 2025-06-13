@@ -36,6 +36,11 @@ export class NotificationService {
             map(response => response.result as NotificationAllResponse[])
         );
     }
+    getNotificationsUser(): Observable<any> {
+        return this.http.get<any>(`${this.apiNotifications}/user`).pipe(    
+            map(response => response.result as NotificationAllResponse[])
+        );
+    }
     
     getImageNotification(imageName: string): string {
         return `${this.apiNotifications}/images/${imageName}`;

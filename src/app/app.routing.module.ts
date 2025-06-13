@@ -40,18 +40,32 @@ import { UserAdminComponent } from './components/admin/user-admin/user.admin.com
 import { UpdateUserAdminComponent } from './components/admin/user-admin/update/update.user.admin.component';
 import { InsertOrderAdminComponent } from './components/admin/order-admin/insert/insert.order.admin.component';
 import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
+import { ChangePasswordComponent } from './components/user-profile/change-password/change.password.component';
+import { OrderHistoryComponent } from './components/history-order/history.order.component';
+import { NotificationUserComponent } from './components/notification-user/notification.user.component';
+import { PurchaseDetailComponent } from './components/admin/purchase.invoice-admin/detail/detail.component';
+import { GoogleAuthCallbackComponent } from './components/pages/google-auth-callback/google.auth.callback.component';
+import { PaymentCallbackComponent } from './components/pages/payment-callback/payment.callback.component';
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'productdetail/:id', component: DetailProductComponent },
-  { path: 'order', component: OrderComponent,canActivate:[AuthGuard] },
-  { path: 'user/profile',component:UserProfileComponent,canActivate:[AuthGuard]},
-  { path: 'order-confirm', component: OrderConfirmComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'oauth2/callback', component: GoogleAuthCallbackComponent },
+
+
   { path: 'register', component: RegisterComponent },
   { path: 'notification', component: NotificationComponent },
-  { path: 'search', component: SearchComponent },
+  { path: 'notification-user', component: NotificationUserComponent, canActivate:[AuthGuard] },
 
-  
+  { path: 'search', component: SearchComponent },
+  { path: 'productdetail/:id', component: DetailProductComponent },
+
+  { path: 'order', component: OrderComponent,canActivate:[AuthGuard] },
+  { path: 'user/profile',component:UserProfileComponent,canActivate:[AuthGuard]},
+  { path: 'user/:id/change-password',component:ChangePasswordComponent,canActivate:[AuthGuard]},
+  { path: 'order-confirm', component: OrderConfirmComponent,canActivate:[AuthGuard] },
+  { path: 'order-history', component: OrderHistoryComponent,canActivate:[AuthGuard] },
+  { path: 'payments/payment-callback', component: PaymentCallbackComponent,canActivate:[AuthGuard] },
+
   {
   path: 'admin',
   component: AdminComponent,
@@ -60,6 +74,7 @@ const routes: Routes = [
     { path: '', redirectTo: 'dashboard', pathMatch: 'full' }, 
     { path: 'dashboard', component: DashboardComponent },
     { path: 'orders', component: OrderAdminComponent },
+
     { path: 'orders/create', component: InsertOrderAdminComponent },
     { path: 'orders/:id', component: DetailOrderAdminComponent }, 
     { path: 'orders/:id/invoice', component: InvoicePrintComponent },
@@ -73,6 +88,7 @@ const routes: Routes = [
     { path: 'products/create', component: InsertProductAdminComponent },
 
     { path: 'purchase_invoice', component: PurchaseInvoiceAdminComponent },
+    { path: 'purchase_invoice/:id/detail', component: PurchaseDetailComponent },
     { path: 'purchase_invoice/create', component: InsertPurchaseInvoiceAdminComponent },
     { path: 'purchase_invoice_detail', component: PurchaseInvoiceDetailAdminComponent },
 
@@ -95,15 +111,6 @@ const routes: Routes = [
 
     { path: 'users', component: UserAdminComponent},
     { path: 'users/update/:id', component: UpdateUserAdminComponent},
-
-
-
-
-
-
-
-
-
 
   ]
   }

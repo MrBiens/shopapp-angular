@@ -1,16 +1,24 @@
-import {IsString, IsNotEmpty,IsPhoneNumber} from 'class-validator';
+import {IsString, IsNotEmpty,IsPhoneNumber, IsEmail, ValidateIf} from 'class-validator';
 
 export class LoginDTO{
-    @IsPhoneNumber()
     @IsNotEmpty()
-    phone_number: string;
+    @IsString()
+    user_name: string;
+
+    @ValidateIf(o => o.user_name.includes('@')) // Kiểm tra nếu user_name có dạng email
+    @IsEmail()
+    email?: string;
+
+    @ValidateIf(o => !o.user_name.includes('@')) // Kiểm tra nếu user_name có dạng số điện thoại
+    @IsPhoneNumber('VN') // Thay 'VN' bằng mã quốc gia phù hợp
+    phoneNumber?: string;
 
     @IsNotEmpty()
     @IsString()
     password: string;
 
     constructor(data:any){
-        this.phone_number = data.phone_number ;
+        this.user_name = data.user_name ;
         this.password = data.password ;
     }
 

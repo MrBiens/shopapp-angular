@@ -13,6 +13,7 @@ export class PurchaseInvoiceAdminComponent implements OnInit {
 
   invoices: PurchaseInvoice[] = [];
 
+
   constructor(
     private purchaseInvoiceService: PurchaseInvoiceService,
     private router: Router
@@ -33,6 +34,7 @@ export class PurchaseInvoiceAdminComponent implements OnInit {
   goToCreateInvoice() {
     this.router.navigate(['/purchase_invoice/create']);
   }
+  
   
 
 }

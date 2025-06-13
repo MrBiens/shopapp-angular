@@ -46,7 +46,7 @@
                 <td>{{ order.order_date | date: 'short' }}</td>
                 <td>
                 <select [(ngModel)]="order.status" (change)="onStatusChange(order)">
-                    <option [value]="0">{{ order.status }}</option>
+                    <option disabled selected>{{ order.status }}</option>
                     <option *ngFor="let status of orderStatuses" [ngValue]="status">
                     {{ status }}
                     </option>

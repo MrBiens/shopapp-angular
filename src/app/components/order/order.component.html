@@ -86,7 +86,20 @@
             placeholder="Enter any special instructions"
           ></textarea>
         </div>
+         <div class="form-group">
+          <label for="shipping_method">Phương thức giao hàng</label>
+          <select id="shipping_method" class="form-control" formControlName="shipping_method">
+            <option *ngFor="let method of shippingMethods" [value]="method.value">{{ method.label }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="payment_method">Phương thức thanh toán</label>
+          <select id="payment_method" class="form-control" formControlName="payment_method">
+            <option *ngFor="let method of paymentMethods" [value]="method.value">{{ method.label }}</option>
+          </select>
+        </div>
       </div>
+     
 
       <!-- Chi tiết đơn hàng -->
       <div class="col-md-6">

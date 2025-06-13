@@ -29,8 +29,8 @@ export class UserAdminComponent implements OnInit {
   searchUsers(): void {
     this.userService.searchUsers(this.keyword, this.page, this.limit).subscribe({
       next: (data) => {
-        this.users = data;
-        this.totalPages = Math.ceil(data.length / this.limit);
+        this.users = data.users;
+        this.totalPages = data.totalPages;
         this.visiblePages = this.generateVisiblePageArray(this.page, this.totalPages);
       },
       error: (err) => {

@@ -43,17 +43,18 @@ export class HeaderComponent implements OnInit{
   handleUserMenu(option: number): void {
   switch (option) {
     case 0:
-      this.router.navigate(['/profile']);
+      this.router.navigate(['/user/profile']);
       break;
     case 1:
-      this.router.navigate(['/order']);
+      this.router.navigate(['/order-history']);
       break;
     case 2:
-      this.router.navigate(['/notification']);
+      this.router.navigate(['/notification-user']);
       break;
     case 3:
       this.userService.logout();
       this.tokenService.removeAccessToken();
+      this.tokenService.removeRefreshToken();
       this.userResponse = null; // Đặt lại userResponse thành null
       this.router.navigate(['/login']);
       break;

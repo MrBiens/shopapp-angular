@@ -7,8 +7,9 @@ export class OrderDTO {
   note: string;
   total_money: number;
   shipping_method: string;
-  shipping_fee: number;
+  shipping_fee: number | string;
   payment_method: string;
+  vnp_txn_ref?: string; // Optional, used for payment callback
   cart_items: {
     product_id: number;
     quantity: number;

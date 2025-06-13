@@ -58,6 +58,12 @@ import { InsertOrderAdminComponent } from './components/admin/order-admin/insert
 import { UpdateOrderAdminComponent } from './components/admin/order-admin/update/update.order.admin.component';
 import { NgChartsModule } from 'ng2-charts';
 import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { ChangePasswordComponent } from './components/user-profile/change-password/change.password.component';
+import { OrderHistoryComponent } from './components/history-order/history.order.component';
+import { NotificationUserComponent } from './components/notification-user/notification.user.component';
+import { PurchaseDetailComponent } from './components/admin/purchase.invoice-admin/detail/detail.component';
+import { GoogleAuthCallbackComponent } from './components/pages/google-auth-callback/google.auth.callback.component';
 
 @NgModule({
   declarations: [
@@ -68,12 +74,16 @@ import { DashboardComponent } from './components/admin/dashboard/dashboard.compo
     FooterComponent,
     OrderComponent, 
     SearchComponent,
-
+    UserProfileComponent,
+    ChangePasswordComponent,
+    OrderHistoryComponent,
     DetailProductComponent, 
     OrderConfirmComponent, 
     LoginComponent, 
+    GoogleAuthCallbackComponent,
     RegisterComponent,
     SidebarComponent,
+    NotificationUserComponent,
 
     DetailOrderAdminComponent,
     InvoicePrintComponent,
@@ -87,6 +97,7 @@ import { DashboardComponent } from './components/admin/dashboard/dashboard.compo
     UpdateCategoryAdminComponent,
     
     PurchaseInvoiceAdminComponent,
+    PurchaseDetailComponent,
     InsertPurchaseInvoiceAdminComponent,
     PurchaseInvoiceDetailAdminComponent,
 
